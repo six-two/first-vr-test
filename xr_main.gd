@@ -8,6 +8,8 @@ func _ready() -> void:
 	$CanvasLayer.visible = false
 	$CanvasLayer/Button.pressed.connect(self._on_button_pressed)
  
+	print_tree_pretty()
+
 	webxr_interface = XRServer.find_interface("WebXR")
 	if webxr_interface:
 		# WebXR uses a lot of asynchronous callbacks, so we connect to various
@@ -66,6 +68,11 @@ func _on_button_pressed() -> void:
  
 func _webxr_session_started() -> void:
 	$CanvasLayer.visible = false
+	
+	# Reset the position of the controler (modified by the debug script)
+	$XROrigin3D/LeftController.position.x = 0
+	$XROrigin3D/XRNode3D/XRCamera3D.position.z = 0
+	
 	# This tells Godot to start rendering to the headset.
 	get_viewport().use_xr = true
 	# This will be the reference space type you ultimately got, out of the
