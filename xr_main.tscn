@@ -1,0 +1,83 @@
+[gd_scene load_steps=10 format=3 uid="uid://cgiorurih0iad"]
+
+[ext_resource type="Script" uid="uid://bb0k5a3id5df1" path="res://xr_main.gd" id="1_qtl1l"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mxae5"]
+shading_mode = 0
+albedo_color = Color(0.953644, 0.903418, 0.211569, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_686up"]
+radius = 0.1
+height = 0.2
+
+[sub_resource type="BoxMesh" id="BoxMesh_jga2l"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_k0sh0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d2wx5"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k0sh0"]
+transparency = 1
+albedo_color = Color(0.105882, 1, 0.105882, 0.588235)
+
+[sub_resource type="SphereMesh" id="SphereMesh_d2wx5"]
+
+[sub_resource type="Environment" id="Environment_k0sh0"]
+background_mode = 1
+background_color = Color(0, 0.984314, 0, 1)
+ambient_light_color = Color(0.890196, 0.890196, 0.215686, 1)
+
+[node name="XRMain" type="Node3D"]
+script = ExtResource("1_qtl1l")
+
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+current = true
+
+[node name="XRNode3D" type="XRNode3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.4086)
+tracker = &"head"
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D/XRNode3D"]
+top_level = true
+
+[node name="LeftController" type="XRController3D" parent="XROrigin3D"]
+tracker = &"left_hand"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/LeftController"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.349482)
+material_override = SubResource("StandardMaterial3D_mxae5")
+mesh = SubResource("SphereMesh_686up")
+
+[node name="RightController" type="XRController3D" parent="XROrigin3D"]
+tracker = &"right_hand"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/RightController"]
+mesh = SubResource("BoxMesh_jga2l")
+
+[node name="Node3D" type="Node3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.544311, 0, -1.90895)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="XROrigin3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.544311, 0, -0.499651)
+mesh = SubResource("BoxMesh_k0sh0")
+skeleton = NodePath("../../XRNode3D")
+surface_material_override/0 = SubResource("StandardMaterial3D_d2wx5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/Node3D"]
+material_override = SubResource("StandardMaterial3D_k0sh0")
+mesh = SubResource("SphereMesh_d2wx5")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Enter VR"
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+omni_range = 4096.0
+omni_attenuation = 0.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_k0sh0")
