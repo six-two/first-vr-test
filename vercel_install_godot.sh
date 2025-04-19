@@ -12,3 +12,6 @@ curl -L https://github.com/godotengine/godot/releases/download/$VERSION-stable/G
 unzip templates.tpz
 mkdir -p ~/.local/share/godot/export_templates/$VERSION.stable/
 cp templates/web_* ~/.local/share/godot/export_templates/$VERSION.stable/
+
+# Create an empty folder for our project export
+mkdir public
