@@ -1,5 +1,5 @@
 {
-    "installCommand": "bash -x vercel_install_godot.sh",
+    "installCommand": "bash -x vercel/install_godot.sh",
     "buildCommand": "./godot --headless --export-release Web public/index.html",
     "outputDirectory": "public",
     "github": {
