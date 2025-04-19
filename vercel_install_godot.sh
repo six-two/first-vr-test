@@ -1,4 +1,5 @@
-VERSION=
+VERSION=4.4.1
+set -e
 
 # Download and unpack godot
 curl -L https://github.com/godotengine/godot/releases/download/$VERSION-stable/Godot_v$VERSION-stable_linux.x86_64.zip -o godot.zip;
