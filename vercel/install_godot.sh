@@ -14,6 +14,7 @@ chmod +x godot
 # cp templates/web_* ~/.local/share/godot/export_templates/$VERSION.stable/
 
 # Use templates from this repo. This is much faster, since it skips 1GB of files downloading and extracting
+mkdir -p ~/.local/share/godot/export_templates/$VERSION.stable/
 cp vercel/web_* ~/.local/share/godot/export_templates/$VERSION.stable/
 
 # Create an empty folder for our project export
