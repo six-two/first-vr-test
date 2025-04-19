@@ -1,8 +1,9 @@
 [gd_scene load_steps=10 format=3 uid="uid://bo6t1gw5eket4"]
 
-[ext_resource type="Script" uid="uid://qiwsebo5cwpv" path="res://taiko/drumb_events.gd" id="1_mcgeg"]
+[ext_resource type="Script" uid="uid://qiwsebo5cwpv" path="res://taiko_vr/drumb_events.gd" id="1_mcgeg"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2obr2"]
+shading_mode = 0
 albedo_color = Color(0.491791, 0.231449, 0.0140601, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_mcgeg"]
@@ -13,6 +14,7 @@ height = 0.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mcgeg"]
 render_priority = -1
+shading_mode = 0
 albedo_color = Color(0, 0, 1, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_0dg4t"]
@@ -26,6 +28,7 @@ height = 0.05
 radius = 0.3
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0dg4t"]
+shading_mode = 0
 albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_oi1fg"]

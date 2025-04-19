@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfu8ps3d5gxse"]
+
+[ext_resource type="Script" uid="uid://f44dnb25l18g" path="res://menu/main_menu.gd" id="1_chmv6"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_chmv6")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 1.0
+offset_right = 1151.0
+offset_bottom = 645.0
+color = Color(0.65834, 0.65834, 0.65834, 1)
+
+[node name="VRButton" type="Button" parent="."]
+offset_left = 114.0
+offset_top = 74.0
+offset_right = 528.0
+offset_bottom = 272.0
+theme_override_font_sizes/font_size = 70
+text = "Enter VR"
+
+[node name="FlatScreenButton" type="Button" parent="."]
+offset_left = 625.0
+offset_top = 74.0
+offset_right = 1039.0
+offset_bottom = 272.0
+theme_override_font_sizes/font_size = 30
+text = "2D mode
+(for development)"
+
+[node name="ErrorText" type="Label" parent="."]
+offset_left = 135.0
+offset_top = 332.0
+offset_right = 1037.0
+offset_bottom = 536.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "Please press \"Enter VR\" and allow this page to start an immersive experience (VR Session)"
+vertical_alignment = 1
+autowrap_mode = 3

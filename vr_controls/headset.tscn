@@ -1,7 +1,0 @@
-[gd_scene format=3 uid="uid://dv0sm8uo44k4d"]
-
-[node name="XRNode3D" type="XRNode3D"]
-tracker = &"head"
-
-[node name="XRCamera3D" type="XRCamera3D" parent="."]
-top_level = true

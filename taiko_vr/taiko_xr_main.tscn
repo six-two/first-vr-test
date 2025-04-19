@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://cgiorurih0iad"]
+
+[ext_resource type="PackedScene" uid="uid://cp67yib0jrtvg" path="res://vr_controls/controller.tscn" id="2_8n60k"]
+[ext_resource type="Script" uid="uid://bm081j0oah58f" path="res://vr_controls/player_movement.gd" id="2_e1u4u"]
+[ext_resource type="PackedScene" uid="uid://bo6t1gw5eket4" path="res://taiko_vr/drumb.tscn" id="4_d77il"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_608u1"]
+albedo_color = Color(0.052192, 0.052192, 0.0497937, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_e1u4u"]
+material = SubResource("StandardMaterial3D_608u1")
+size = Vector2(10000, 10000)
+
+[sub_resource type="Environment" id="Environment_k0sh0"]
+background_mode = 1
+background_color = Color(0.142537, 0.685933, 0.891964, 1)
+ambient_light_color = Color(1, 1, 1, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_e1u4u"]
+height = 1.8
+radius = 0.2
+
+[node name="Root" type="Node3D"]
+
+[node name="Drumb" parent="." instance=ExtResource("4_d77il")]
+transform = Transform3D(1, 0, 0, 0, 0.817879, -0.575391, 0, 0.575391, 0.817879, -0.076572, 0.507955, -1.3665)
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_e1u4u")
+skeleton = NodePath("../WorldEnvironment")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_k0sh0")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+
+[node name="XROrigin3D" type="XROrigin3D" parent="CharacterBody3D"]
+current = true
+script = ExtResource("2_e1u4u")
+
+[node name="XRCamera3D" type="XRCamera3D" parent="CharacterBody3D/XROrigin3D"]
+
+[node name="LeftController" parent="CharacterBody3D/XROrigin3D" instance=ExtResource("2_8n60k")]
+tracker = &"left_hand"
+
+[node name="RightController" parent="CharacterBody3D/XROrigin3D" instance=ExtResource("2_8n60k")]
+tracker = &"right_hand"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CylinderShape3D_e1u4u")

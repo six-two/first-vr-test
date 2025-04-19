@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="First VR test"
-run/main_scene="res://xr_main.tscn"
+run/main_scene="uid://cfu8ps3d5gxse"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -23,6 +23,9 @@ project/assembly_name="First VR test"
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+anti_aliasing/quality/msaa_2d=1
+anti_aliasing/quality/msaa_3d=1
+anti_aliasing/quality/screen_space_aa=1
 
 [xr]
 
