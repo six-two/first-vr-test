@@ -1,5 +1,5 @@
 {
-    "installCommand": "curl -L https://github.com/godotengine/godot/releases/download/4.4.1-stable/Godot_v4.4.1-stable_linux.x86_64.zip -o godot.zip; unzip godot.zip; mv Godot_*.x86_64 godot; chmod +x godot",
+    "installCommand": "curl -L https://github.com/godotengine/godot/releases/download/4.4.1-stable/Godot_v4.4.1-stable_linux.x86_64.zip -o godot.zip; unzip godot.zip; mv Godot_*.x86_64 godot; chmod +x godot; curl -L https://github.com/godotengine/godot/releases/download/4.4.1-stable/Godot_v4.4.1-stable_export_templates.tpz -o templates.tpz; unzip templates.tpz; mkdir -p ~/.local/share/godot/export_templates/4.4.1.stable/; cp templates/web_* ~/.local/share/godot/export_templates/4.4.1.stable/",
     "buildCommand": "./godot --headless --export-release Web public/index.html",
     "outputDirectory": "public",
     "github": {
