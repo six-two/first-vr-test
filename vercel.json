@@ -1,0 +1,8 @@
+{
+    "installCommand": "curl -L https://github.com/godotengine/godot/releases/download/4.4.1-stable/Godot_v4.4.1-stable_linux.x86_64.zip -o godot.zip; unzip godot.zip; mv Godot_*.x86_64 godot; chmod +x godot",
+    "buildCommand": "./godot --headless --export-release Web public/index.html",
+    "outputDirectory": "public",
+    "github": {
+        "silent": true
+    }
+}
