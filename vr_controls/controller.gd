@@ -16,24 +16,21 @@ func _ready():
 	$Area3D.scale = self.scale
 
 	# Connect signals to methods
-	$Area3D.connect("area_entered", self._on_Area_body_entered)
-	$Area3D.connect("area_exited", self._on_Area_body_exited)
+	$Area3D.connect("area_entered", self._on_area_body_entered)
+	$Area3D.connect("area_exited", self._on_area_body_exited)
 	
 	# Ensure that the collision shapes are in the "Collidable" group
-	$Area3D.add_to_group("Collidable")
+	$Area3D.add_to_group("Controller")
 	print_tree_pretty()
 	
 
-func _on_Area_body_entered(body):
-	print("On body entered")
-	# Change the object's color when it collides
-	if body.is_in_group("Collidable"):
+func _on_area_body_entered(body):
+	if body.is_in_group("Controller"):
 		# Change the material to a new one (or just change its color)
 		$MeshInstance3D.material_override = collision_material
 		print("Collision detected!")
 
-func _on_Area_body_exited(body):
-	# Revert the material when the object exits the collision
-	if body.is_in_group("Collidable"):
+func _on_area_body_exited(body):
+	if body.is_in_group("Controller"):
 		$MeshInstance3D.material_override = normal_material
 		print("Collision ended!")

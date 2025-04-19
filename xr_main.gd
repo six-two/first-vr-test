@@ -2,6 +2,17 @@
 # https://localhost:8060/tmp_js_export.html
 extends Node3D
 
+var dragging = false
+var sensitivity = 0.001
+func _unhandled_input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			dragging = event.pressed  # true when pressed, false when released
+
+	if event is InputEventMouseMotion and dragging:
+		var delta = event.relative
+		$XROrigin3D/RightController.translate(Vector3(delta.x * sensitivity, -delta.y * sensitivity, 0))
+
 var webxr_interface
 
 # Movement parameters

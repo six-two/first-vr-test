@@ -1,15 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://cgiorurih0iad"]
+[gd_scene load_steps=9 format=3 uid="uid://cgiorurih0iad"]
 
 [ext_resource type="Script" uid="uid://bb0k5a3id5df1" path="res://xr_main.gd" id="1_qtl1l"]
 [ext_resource type="PackedScene" uid="uid://cp67yib0jrtvg" path="res://vr_controls/controller.tscn" id="2_d2wx5"]
 [ext_resource type="PackedScene" uid="uid://dv0sm8uo44k4d" path="res://vr_controls/headset.tscn" id="2_mxae5"]
+[ext_resource type="PackedScene" uid="uid://bo6t1gw5eket4" path="res://taiko/drumb.tscn" id="4_686up"]
+[ext_resource type="Script" uid="uid://b1llf5v8a3cpv" path="res://taiko/drumb_listener.gd" id="4_qc7dy"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_k0sh0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d2wx5"]
 albedo_color = Color(1, 0, 0, 1)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_mxae5"]
 
 [sub_resource type="Environment" id="Environment_k0sh0"]
 background_mode = 1
@@ -29,15 +29,16 @@ tracker = &"left_hand"
 
 [node name="Node3D" type="Node3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.544311, 0, -1.90895)
+script = ExtResource("4_qc7dy")
+
+[node name="Drumb" parent="XROrigin3D/Node3D" instance=ExtResource("4_686up")]
+transform = Transform3D(1, 0, 0, 0, 0.817879, -0.575391, 0, 0.575391, 0.817879, -0.620883, -0.142747, 1.58209)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.544311, 0, -0.499651)
 mesh = SubResource("BoxMesh_k0sh0")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_d2wx5")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="XROrigin3D/Node3D"]
-mesh = SubResource("CylinderMesh_mxae5")
 
 [node name="RightController" parent="XROrigin3D" instance=ExtResource("2_d2wx5")]
 tracker = &"right_hand"
