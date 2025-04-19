@@ -1,16 +1,18 @@
 extends XRNode3D
 
 # This is the material we want to change to.
+var normal_material : Material
 var collision_material : Material
-var mat := StandardMaterial3D.new()
-
 
 func _ready():
 	# Store the default material of the object to revert back later if needed
-	collision_material = $MeshInstance3D.material_override
+	normal_material = $MeshInstance3D.material_override
+	collision_material = StandardMaterial3D.new()
+	collision_material.albedo_color = Color(1, 0, 0)
+	collision_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+
 	
-	if $MeshInstance3D:
-		$MeshInstance3D.scale = self.scale
+	$MeshInstance3D.scale = self.scale
 	$Area3D.scale = self.scale
 
 	# Connect signals to methods
@@ -21,19 +23,17 @@ func _ready():
 	$Area3D.add_to_group("Collidable")
 	print_tree_pretty()
 	
-	mat.albedo_color = Color(1, 1, 1)
-	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 
 func _on_Area_body_entered(body):
 	print("On body entered")
 	# Change the object's color when it collides
 	if body.is_in_group("Collidable"):
 		# Change the material to a new one (or just change its color)
-		$MeshInstance3D.material_override = mat
+		$MeshInstance3D.material_override = collision_material
 		print("Collision detected!")
 
 func _on_Area_body_exited(body):
 	# Revert the material when the object exits the collision
 	if body.is_in_group("Collidable"):
-		$MeshInstance3D.material_override = collision_material
+		$MeshInstance3D.material_override = normal_material
 		print("Collision ended!")

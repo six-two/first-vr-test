@@ -3,12 +3,43 @@
 extends Node3D
 
 var webxr_interface
- 
+
+# Movement parameters
+@export var left_limit: float = -0.02
+@export var right_limit: float = 0.02
+@export var speed: float = 0.02
+
+var direction: int = 1  # 1 = right, -1 = left
+
+func _process(delta: float) -> void:
+	if not get_viewport().use_xr:
+		var nodeToMove = $XROrigin3D/LeftController
+		# Move object
+		var x = nodeToMove.position.x
+		x += direction * speed * delta
+
+		# Switch direction if we hit a limit
+		if x > right_limit:
+			x = right_limit
+			direction = -1
+		elif x < left_limit:
+			x = left_limit
+			direction = 1
+		
+		nodeToMove.position.x = x
+
+	var thumbstick_vector: Vector2 = $XROrigin3D/LeftController.get_vector2("thumbstick")
+	if thumbstick_vector != Vector2.ZERO:
+		print ("Left thumbstick position: " + str(thumbstick_vector))
+
+
 func _ready() -> void:
 	$CanvasLayer.visible = false
 	$CanvasLayer/Button.pressed.connect(self._on_button_pressed)
+	$XROrigin3D/Headset/XRCamera3D.position.z = 0.1
  
 	print_tree_pretty()
+
 
 	webxr_interface = XRServer.find_interface("WebXR")
 	if webxr_interface:
@@ -69,9 +100,9 @@ func _on_button_pressed() -> void:
 func _webxr_session_started() -> void:
 	$CanvasLayer.visible = false
 	
-	# Reset the position of the controler (modified by the debug script)
+	# Reset the position of the controller
 	$XROrigin3D/LeftController.position.x = 0
-	$XROrigin3D/XRNode3D/XRCamera3D.position.z = 0
+	$XROrigin3D/Headset/XRCamera3D.position.z = 0
 	
 	# This tells Godot to start rendering to the headset.
 	get_viewport().use_xr = true
@@ -80,11 +111,6 @@ func _webxr_session_started() -> void:
 	# work a little differently in 'bounded-floor' versus 'local-floor'.
 	print ("Reference space type: " + webxr_interface.reference_space_type)
  
-	print("🎉 WebXR session started")
-	print("📷 Viewport XR enabled:", get_viewport().use_xr)
-	print("🌐 Primary XR interface:", XRServer.primary_interface)
-	print("🎥 Camera node:", $XROrigin3D/XRNode3D/XRCamera3D)
-	print("📏 Projection matrix:", $XROrigin3D/XRNode3D/XRCamera3D.get_projection())
 
 func _webxr_session_ended() -> void:
 	$CanvasLayer.visible = true
@@ -100,12 +126,7 @@ func _on_left_controller_button_pressed(button: String) -> void:
  
 func _on_left_controller_button_released(button: String) -> void:
 	print ("Button release: " + button)
- 
-func _process(_delta: float) -> void:
-	var thumbstick_vector: Vector2 = $XROrigin3D/LeftController.get_vector2("thumbstick")
-	if thumbstick_vector != Vector2.ZERO:
-		print ("Left thumbstick position: " + str(thumbstick_vector))
- 
+
 func _webxr_on_select(input_source_id: int) -> void:
 	print("Select: " + str(input_source_id))
  

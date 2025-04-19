@@ -1,31 +1,15 @@
-[gd_scene load_steps=13 format=3 uid="uid://cgiorurih0iad"]
+[gd_scene load_steps=8 format=3 uid="uid://cgiorurih0iad"]
 
 [ext_resource type="Script" uid="uid://bb0k5a3id5df1" path="res://xr_main.gd" id="1_qtl1l"]
-[ext_resource type="Script" uid="uid://cqjxspc3nlfv4" path="res://collision_shape_3d.gd" id="2_d2wx5"]
-[ext_resource type="Script" uid="uid://who7ep7esm4p" path="res://debug.gd" id="2_mxae5"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_mxae5"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mxae5"]
-shading_mode = 0
-albedo_color = Color(1, 0, 0, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_686up"]
-material = SubResource("StandardMaterial3D_mxae5")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_686up"]
-shading_mode = 0
-albedo_color = Color(0, 0, 1, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_qc7dy"]
-material = SubResource("StandardMaterial3D_686up")
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_686up"]
+[ext_resource type="PackedScene" uid="uid://cp67yib0jrtvg" path="res://vr_controls/controller.tscn" id="2_d2wx5"]
+[ext_resource type="PackedScene" uid="uid://dv0sm8uo44k4d" path="res://vr_controls/headset.tscn" id="2_mxae5"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_k0sh0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d2wx5"]
 albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_mxae5"]
 
 [sub_resource type="Environment" id="Environment_k0sh0"]
 background_mode = 1
@@ -38,50 +22,25 @@ script = ExtResource("1_qtl1l")
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
 current = true
 
-[node name="XRNode3D" type="XRNode3D" parent="XROrigin3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.4086)
-tracker = &"head"
+[node name="Headset" parent="XROrigin3D" instance=ExtResource("2_mxae5")]
 
-[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D/XRNode3D"]
-top_level = true
-
-[node name="LeftController" type="XRController3D" parent="XROrigin3D"]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+[node name="LeftController" parent="XROrigin3D" instance=ExtResource("2_d2wx5")]
 tracker = &"left_hand"
-script = ExtResource("2_d2wx5")
-
-[node name="Area3D" type="Area3D" parent="XROrigin3D/LeftController"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/LeftController/Area3D"]
-shape = SubResource("SphereShape3D_mxae5")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/LeftController"]
-mesh = SubResource("SphereMesh_686up")
-
-[node name="Node3D" type="Node3D" parent="XROrigin3D/LeftController"]
-script = ExtResource("2_mxae5")
-
-[node name="RightController" type="XRController3D" parent="XROrigin3D"]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-tracker = &"right_hand"
-script = ExtResource("2_d2wx5")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/RightController"]
-mesh = SubResource("SphereMesh_qc7dy")
-
-[node name="Area3D" type="Area3D" parent="XROrigin3D/RightController"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/RightController/Area3D"]
-shape = SubResource("SphereShape3D_686up")
 
 [node name="Node3D" type="Node3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.544311, 0, -1.90895)
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="XROrigin3D/Node3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.544311, 0, -0.499651)
 mesh = SubResource("BoxMesh_k0sh0")
-skeleton = NodePath("../../XRNode3D")
+skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_d2wx5")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="XROrigin3D/Node3D"]
+mesh = SubResource("CylinderMesh_mxae5")
+
+[node name="RightController" parent="XROrigin3D" instance=ExtResource("2_d2wx5")]
+tracker = &"right_hand"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
