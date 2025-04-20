@@ -6,6 +6,8 @@ var move_speed := 1
 func _ready() -> void:
 	$LeftController/Area3D.name = "LeftControllerArea"
 	$RightController/Area3D.name = "RightControllerArea"
+	
+	$XRCamera3D.add_to_group("Camera")
 
 func _physics_process(delta):
 #func _process(delta: float) -> void:

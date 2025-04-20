@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://e0xmjtni03ok"]
+
+[ext_resource type="Script" uid="uid://cbr6v7ncfq6k0" path="res://taiko_vr/small_note.gd" id="1_qx55o"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_np1iw"]
+shading_mode = 0
+
+[sub_resource type="SphereMesh" id="SphereMesh_qxtbh"]
+material = SubResource("StandardMaterial3D_np1iw")
+radius = 0.1
+height = 0.2
+
+[node name="SmallNote" type="MeshInstance3D"]
+mesh = SubResource("SphereMesh_qxtbh")
+script = ExtResource("1_qx55o")

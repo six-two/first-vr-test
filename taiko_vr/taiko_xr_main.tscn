@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cgiorurih0iad"]
+[gd_scene load_steps=12 format=3 uid="uid://cgiorurih0iad"]
 
-[ext_resource type="Script" uid="uid://b1llf5v8a3cpv" path="res://taiko_vr/drumb_listener.gd" id="1_e1u4u"]
+[ext_resource type="Script" uid="uid://b1llf5v8a3cpv" path="res://taiko_vr/taiko_xr_main.gd" id="1_e1u4u"]
 [ext_resource type="PackedScene" uid="uid://cp67yib0jrtvg" path="res://vr_controls/controller.tscn" id="2_8n60k"]
 [ext_resource type="Script" uid="uid://bm081j0oah58f" path="res://vr_controls/player_movement.gd" id="2_e1u4u"]
 [ext_resource type="PackedScene" uid="uid://bo6t1gw5eket4" path="res://taiko_vr/drumb.tscn" id="4_d77il"]
+[ext_resource type="AudioStream" uid="uid://cpba4nhx7d4lv" path="res://music/edm-dance-club-music-259530.mp3" id="6_v3wda"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_608u1"]
 albedo_color = Color(0.052192, 0.052192, 0.0497937, 1)
@@ -16,6 +17,14 @@ size = Vector2(10000, 10000)
 background_mode = 1
 background_color = Color(0.142537, 0.685933, 0.891964, 1)
 ambient_light_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v3wda"]
+shading_mode = 0
+albedo_color = Color(0.374139, 0.374139, 0.374139, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_d77il"]
+material = SubResource("StandardMaterial3D_v3wda")
+size = Vector3(0.1, 1, 1)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_e1u4u"]
 height = 1.8
@@ -34,6 +43,12 @@ skeleton = NodePath("../WorldEnvironment")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_k0sh0")
 
+[node name="JudgementLine" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1.5, -6)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="JudgementLine"]
+mesh = SubResource("BoxMesh_d77il")
+
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
 
 [node name="XROrigin3D" type="XROrigin3D" parent="CharacterBody3D"]
@@ -50,3 +65,6 @@ tracker = &"right_hand"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
 shape = SubResource("CylinderShape3D_e1u4u")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_v3wda")

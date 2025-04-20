@@ -34,6 +34,12 @@ func _on_button_flat_pressed() -> void:
 		var new_scene = load("res://taiko_vr/taiko_xr_main.tscn").instantiate()
 		new_scene.name = "TaikoVR"
 		add_child(new_scene)
+		
+		for camera in get_tree().get_nodes_in_group("Camera"):
+			# In non-VR mode, we simulate the perspective of a real player
+			camera.position.y = 1.8 # The average persion is around 1.8m tall
+			camera.rotation_degrees.x = -15 # look slightly down
+
 
 func _on_button_vr_pressed() -> void:
 	if webxr_interface:
