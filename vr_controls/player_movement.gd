@@ -1,16 +1,16 @@
 extends Node3D
 
-# Speed of movement
 var move_speed := 1
-
-# Reference to the left controller
 @onready var controller = $RightController
 
-#func _physics_process(delta):
-func _process(delta: float) -> void:
+func _ready() -> void:
+	$LeftController/Area3D.name = "LeftControllerArea"
+	$RightController/Area3D.name = "RightControllerArea"
+
+func _physics_process(delta):
+#func _process(delta: float) -> void:
 	# Read joystick axes from left controller (values from -1 to 1)
 	var input_vec = controller.get_vector2("thumbstick")
-	print("Stick position", input_vec)
 
 	if input_vec.length() > 0.1:
 		# Optional: rotate input by camera's orientation so movement matches where you're looking

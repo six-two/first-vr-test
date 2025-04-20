@@ -8,7 +8,7 @@ func _ready():
 	# Store the default material of the object to revert back later if needed
 	normal_material = $MeshInstance3D.material_override
 	collision_material = StandardMaterial3D.new()
-	collision_material.albedo_color = Color(1, 0, 0)
+	collision_material.albedo_color = Color(0, 1, 0)
 	collision_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 
 	
@@ -21,16 +21,14 @@ func _ready():
 	
 	# Ensure that the collision shapes are in the "Collidable" group
 	$Area3D.add_to_group("Controller")
-	print_tree_pretty()
 	
 
 func _on_area_body_entered(body):
 	if body.is_in_group("Controller"):
 		# Change the material to a new one (or just change its color)
 		$MeshInstance3D.material_override = collision_material
-		print("Collision detected!")
+		print("Clap")
 
 func _on_area_body_exited(body):
 	if body.is_in_group("Controller"):
 		$MeshInstance3D.material_override = normal_material
-		print("Collision ended!")

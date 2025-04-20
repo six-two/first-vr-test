@@ -1,5 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://cgiorurih0iad"]
+[gd_scene load_steps=9 format=3 uid="uid://cgiorurih0iad"]
 
+[ext_resource type="Script" uid="uid://b1llf5v8a3cpv" path="res://taiko_vr/drumb_listener.gd" id="1_e1u4u"]
 [ext_resource type="PackedScene" uid="uid://cp67yib0jrtvg" path="res://vr_controls/controller.tscn" id="2_8n60k"]
 [ext_resource type="Script" uid="uid://bm081j0oah58f" path="res://vr_controls/player_movement.gd" id="2_e1u4u"]
 [ext_resource type="PackedScene" uid="uid://bo6t1gw5eket4" path="res://taiko_vr/drumb.tscn" id="4_d77il"]
@@ -21,6 +22,7 @@ height = 1.8
 radius = 0.2
 
 [node name="Root" type="Node3D"]
+script = ExtResource("1_e1u4u")
 
 [node name="Drumb" parent="." instance=ExtResource("4_d77il")]
 transform = Transform3D(1, 0, 0, 0, 0.817879, -0.575391, 0, 0.575391, 0.817879, -0.076572, 0.507955, -1.3665)

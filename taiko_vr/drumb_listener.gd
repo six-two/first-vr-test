@@ -5,6 +5,7 @@ var edge_hit_material : Material
 var normal_material : Material
 
 func _ready():
+	print("DrumbListener ready")
 	$Drumb/Head.connect("drumb_center_hit", self._on_drumb_center_hit)
 	$Drumb/Head.connect("drumb_edge_hit", self._on_drumb_edge_hit)
 	$Drumb/Head.connect("drumb_exited", self._on_drumb_exited)

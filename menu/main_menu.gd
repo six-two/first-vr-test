@@ -28,7 +28,12 @@ func _webxr_session_supported(session_mode: String, supported: bool) -> void:
  
 
 func _on_button_flat_pressed() -> void:
-	$ErrorText.text = "2D mode is not implemented yet"
+	self.visible = false
+
+	if not has_node("TaikoVR"):
+		var new_scene = load("res://taiko_vr/taiko_xr_main.tscn").instantiate()
+		new_scene.name = "TaikoVR"
+		add_child(new_scene)
 
 func _on_button_vr_pressed() -> void:
 	if webxr_interface:
