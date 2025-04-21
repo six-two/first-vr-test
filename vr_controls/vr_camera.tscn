@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpfv4fuufyy8c"]
+
+[ext_resource type="Script" uid="uid://c8j0njulhjbrv" path="res://vr_controls/vr_camera.gd" id="1_52jpu"]
+
+[node name="VrCamera" type="XRCamera3D"]
+script = ExtResource("1_52jpu")

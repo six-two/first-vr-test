@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 TaikoConst="*res://taiko_vr/constants.gd"
 
+[display]
+
+window/size/viewport_height=800
+
 [dotnet]
 
 project/assembly_name="First VR test"

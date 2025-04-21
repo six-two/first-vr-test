@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=3 uid="uid://c48gap7hpf2o1"]
+
+[ext_resource type="Script" uid="uid://cliho3rgd8av4" path="res://taiko_vr/menu/song_menu_2d.gd" id="1_7eipn"]
+[ext_resource type="Theme" uid="uid://bpaigbsplgsv8" path="res://taiko_vr/menu/menu_theme.tres" id="1_qvm2e"]
+
+[node name="PanelContainer" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7eipn")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 2
+color = Color(0.619489, 0.619489, 0.619489, 1)
+
+[node name="SplitContainer" type="SplitContainer" parent="."]
+layout_mode = 2
+
+[node name="ItemList" type="ItemList" parent="SplitContainer"]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_qvm2e")
+item_count = 3
+item_0/text = "Song1"
+item_1/text = "Song2"
+item_2/text = "..."
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SplitContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_qvm2e")
+text = "Title: Some Song
+Artist: Some Artist
+
+Length: 1m 20s
+Speed: 5
+
+Custom text Sequi molestiae laborum debitis qui sit. Aut velit ea animi nihil. Repellat commodi optio praesentium. Quam dignissimos atque quisquam. Magnam natus voluptates animi sit. Dolores maiores odit maiores sed."
+
+[node name="PlayButton" type="Button" parent="SplitContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Play"

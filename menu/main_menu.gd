@@ -2,6 +2,7 @@
 extends Node
 
 var webxr_interface
+var taiko_vr_song_menu = preload("res://taiko_vr/menu/song_menu.tscn")
 
 func _ready() -> void:
 	$VRButton.pressed.connect(self._on_button_vr_pressed)
@@ -30,15 +31,17 @@ func _webxr_session_supported(session_mode: String, supported: bool) -> void:
 func _on_button_flat_pressed() -> void:
 	self.visible = false
 
-	if not has_node("TaikoVR"):
-		var new_scene = load("res://taiko_vr/taiko_xr_main.tscn").instantiate()
-		new_scene.name = "TaikoVR"
-		add_child(new_scene)
-		
-		for camera in get_tree().get_nodes_in_group("Camera"):
-			# In non-VR mode, we simulate the perspective of a real player
-			camera.position.y = 1.8 # The average persion is around 1.8m tall
-			camera.rotation_degrees.x = -15 # look slightly down
+	get_tree().change_scene_to_packed(taiko_vr_song_menu)
+
+	#if not has_node("TaikoVR"):
+		#var new_scene = load("res://taiko_vr/taiko_xr_main.tscn").instantiate()
+		#new_scene.name = "TaikoVR"
+		#add_child(new_scene)
+		#
+		#for camera in get_tree().get_nodes_in_group("Camera"):
+			## In non-VR mode, we simulate the perspective of a real player
+			#camera.position.y = 1.8 # The average persion is around 1.8m tall
+			#camera.rotation_degrees.x = -15 # look slightly down
 
 
 func _on_button_vr_pressed() -> void:
@@ -78,10 +81,7 @@ func _webxr_session_started() -> void:
 	print("Reference space type: " + webxr_interface.reference_space_type)
  
 	# Load the main game scene
-	if not has_node("TaikoVR"):
-		var new_scene = load("res://taiko_vr/taiko_xr_main.tscn").instantiate()
-		new_scene.name = "TaikoVR"
-		add_child(new_scene)
+	get_tree().change_scene_to_packed(taiko_vr_song_menu)
 
 func _webxr_session_ended() -> void:
 	self.visible = true

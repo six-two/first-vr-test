@@ -1,6 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://bo6t1gw5eket4"]
 
 [ext_resource type="Script" uid="uid://qiwsebo5cwpv" path="res://taiko_vr/drumb_events.gd" id="1_mcgeg"]
+[ext_resource type="Material" uid="uid://divqa3crmqk7d" path="res://taiko_vr/assets/edge_material.tres" id="2_328qm"]
+[ext_resource type="Material" uid="uid://v5n2q7aqfx6d" path="res://taiko_vr/assets/center_material.tres" id="3_r4x0l"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2obr2"]
 shading_mode = 0
@@ -12,13 +14,8 @@ top_radius = 0.3
 bottom_radius = 0.3
 height = 0.5
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mcgeg"]
-render_priority = -1
-shading_mode = 0
-albedo_color = Color(0, 0, 1, 1)
-
 [sub_resource type="CylinderMesh" id="CylinderMesh_0dg4t"]
-material = SubResource("StandardMaterial3D_mcgeg")
+material = ExtResource("2_328qm")
 top_radius = 0.3
 bottom_radius = 0.3
 height = 0.05
@@ -27,12 +24,8 @@ height = 0.05
 height = 0.05
 radius = 0.3
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0dg4t"]
-shading_mode = 0
-albedo_color = Color(1, 0, 0, 1)
-
 [sub_resource type="CylinderMesh" id="CylinderMesh_oi1fg"]
-material = SubResource("StandardMaterial3D_0dg4t")
+material = ExtResource("3_r4x0l")
 top_radius = 0.23
 bottom_radius = 0.23
 height = 0.05
