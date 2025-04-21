@@ -28,8 +28,22 @@ func _ready():
 		$JudgementLine.set_process(true)
 	else:
 		$JudgementLine.set_script(load("res://taiko_vr/note_spawner.gd"))
-		$JudgementLine.create_notes()
+		$JudgementLine.init(drumb)
 		$JudgementLine.set_process(true)
+		
+		$JudgementLine.connect("note_miss", _on_note_miss)
+		$JudgementLine.connect("note_ok", _on_note_ok)
+		$JudgementLine.connect("note_perfect", _on_note_perfect)
+	
+func _on_note_miss(input_type, node):
+	var node_str = node.to_str() if node else "null"
+	print("Note: Miss (", input_type, " / ", node_str, ")")
+		
+func _on_note_ok():
+	print("Note: OK")
+	
+func _on_note_perfect():
+	print("Note: Perfect")
 
 func update_mesh_color(body : Area3D, new_material : Material) -> void:
 	var mesh = body.get_node("../MeshInstance3D")
@@ -37,13 +51,13 @@ func update_mesh_color(body : Area3D, new_material : Material) -> void:
 		mesh.material_override = new_material
 
 func _on_drumb_center_hit(body : Area3D):
-	print("Center")
+	#print("Center")
 	update_mesh_color(body, center_hit_material)
 
 func _on_drumb_edge_hit(body):
-	print("Edge")
+	#print("Edge")
 	update_mesh_color(body, edge_hit_material)
 
 func _on_drumb_exited(body):
-	print("Exited")
+	#print("Exited")
 	update_mesh_color(body, null)

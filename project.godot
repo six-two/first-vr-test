@@ -15,6 +15,10 @@ run/main_scene="uid://cfu8ps3d5gxse"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+TaikoConst="*res://taiko_vr/constants.gd"
+
 [dotnet]
 
 project/assembly_name="First VR test"

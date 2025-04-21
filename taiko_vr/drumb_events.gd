@@ -37,7 +37,6 @@ func _input(event):
 			match event.keycode:
 				KEY_A:
 					drumb_edge_hit.emit(left_controller_body)
-					print("edge")
 				KEY_S:
 					drumb_center_hit.emit(left_controller_body)
 				KEY_D:
