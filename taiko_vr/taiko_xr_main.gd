@@ -3,7 +3,6 @@ extends Node
 var mapping_mode : bool = false
 
 func _ready():
-	print("TaikoXR ready")
 	var drumb = $Drumb/Head
 	var script = load("res://taiko_vr/change_controller_color_listener.gd").new()
 	script.init(drumb)

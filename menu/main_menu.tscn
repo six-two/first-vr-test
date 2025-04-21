@@ -32,9 +32,24 @@ text = "Non-VR mode
 offset_left = 135.0
 offset_top = 332.0
 offset_right = 1037.0
-offset_bottom = 536.0
+offset_bottom = 439.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 30
 text = "Please press \"Enter VR\" and allow this page to start an immersive experience (VR Session)"
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="ErrorText" type="Label" parent="ErrorText"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.187
+anchor_bottom = -0.187
+offset_left = -1.0
+offset_top = 148.009
+offset_right = 860.0
+offset_bottom = 271.009
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "This is a very early prototype and pretty broken as a result. I take no blame if it crashes your headset ;)"
 vertical_alignment = 1
 autowrap_mode = 3

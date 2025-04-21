@@ -37,13 +37,12 @@ size_flags_stretch_ratio = 2.0
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("1_qvm2e")
-text = "Title: Some Song
-Artist: Some Artist
-
-Length: 1m 20s
+text = "Title: EDM Dance Club Music
+Artist: LudoSoundX
+Length: 20s (currently)
 Speed: 5
 
-Custom text Sequi molestiae laborum debitis qui sit. Aut velit ea animi nihil. Repellat commodi optio praesentium. Quam dignissimos atque quisquam. Magnam natus voluptates animi sit. Dolores maiores odit maiores sed."
+Source: https://pixabay.com/music/future-bass-edm-dance-club-music-259530/"
 
 [node name="PlayButton" type="Button" parent="SplitContainer/VBoxContainer"]
 layout_mode = 2
