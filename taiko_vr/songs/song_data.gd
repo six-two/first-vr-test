@@ -16,6 +16,8 @@ static func new_song(song_name, artist, source, notes_str, beat_seconds):
 	song.beat_seconds = beat_seconds
 	return song
 
+static var current_song
+
 static var SONG_LIST = [
 	new_song(
 		"EDM Dance Club Music",
@@ -23,5 +25,12 @@ static var SONG_LIST = [
 		"https://pixabay.com/music/future-bass-edm-dance-club-music-259530/",
 		"  cc cc ccc e cccc e cccc e cccc e c ccce cccc e c ccce c ccce c ccc ecccc cce ccc e ccccc cc ccce cccc ccc ccc ec cc",
 		0.2 
-	)
+	),
+	new_song(
+		"EDM Dance Club Music (test)",
+		"LudoSoundX",
+		"https://pixabay.com/music/future-bass-edm-dance-club-music-259530/",
+		"  cc ",
+		0.5
+	),
 ]

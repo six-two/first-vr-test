@@ -23,10 +23,6 @@ layout_direction = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_qvm2e")
-item_count = 3
-item_0/text = "Song1"
-item_1/text = "Song2"
-item_2/text = "..."
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SplitContainer"]
 layout_mode = 2
@@ -37,14 +33,16 @@ size_flags_stretch_ratio = 2.0
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("1_qvm2e")
-text = "Title: EDM Dance Club Music
-Artist: LudoSoundX
-Length: 20s (currently)
-Speed: 5
-
-Source: https://pixabay.com/music/future-bass-edm-dance-club-music-259530/"
+text = "Title: Placeholder
+Artist: Placeholder
+Length: Placeholder
+Speed: Placeholder
+Source: Placeholder"
 
 [node name="PlayButton" type="Button" parent="SplitContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Play"
+
+[connection signal="item_selected" from="SplitContainer/ItemList" to="." method="_on_item_list_item_selected"]
+[connection signal="pressed" from="SplitContainer/VBoxContainer/PlayButton" to="." method="_on_button_play_pressed"]

@@ -18,6 +18,7 @@ func _ready():
 		$JudgementLine.init(drumb)
 		$JudgementLine.set_process(true)
 		
+		$JudgementLine.connect("song_finished", _on_song_finished)
 		$JudgementLine.connect("note_miss", _on_note_miss)
 		$JudgementLine.connect("note_ok", _on_note_ok)
 		$JudgementLine.connect("note_perfect", _on_note_perfect)
@@ -31,3 +32,7 @@ func _on_note_ok():
 	
 func _on_note_perfect():
 	print("Note: Perfect")
+
+func _on_song_finished():
+	print("Song finished")
+	get_tree().change_scene_to_packed(load("res://taiko_vr/menu/song_menu.tscn"))

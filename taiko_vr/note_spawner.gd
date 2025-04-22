@@ -12,12 +12,14 @@ signal note_ok
 signal note_perfect
 
 static var NoteScene: PackedScene = preload("res://taiko_vr/small_note.tscn")
+var SongData = preload("res://taiko_vr/songs/song_data.gd")
+
 var area_to_type_map : Dictionary = {}
 var last_note_index : int = 0
 
 func init(drumb):
-	#var notes_str = "    " + "cce cce C   ".repeat(100)
-	var notes_str = "  cc cc ccc e cccc e cccc e cccc e c ccce cccc e c ccce c ccce c ccc ecccc cce ccc e ccccc cc ccce cccc ccc ccc ec cc"
+	var notes_str = SongData.current_song.notes_str
+	#var notes_str = "  cc cc ccc e cccc e cccc e cccc e c ccce cccc e c ccce c ccce c ccc ecccc cce ccc e ccccc cc ccce cccc ccc ccc ec cc"
 	beat_seconds = 0.2
 	remaining_time = notes_str.length() * beat_seconds
 	
@@ -129,6 +131,7 @@ func _on_drumb_exited(body):
 func _process(delta: float) -> void:
 	remaining_time -= delta
 
-	if remaining_time < 0:
-		print("Song over")
-		song_finished.emit() #@TODO: make a song select screen
+	# Only send the song finished event once
+	if remaining_time < 0 and remaining_time > -1000:
+		song_finished.emit()
+		remaining_time = -10000

@@ -1,44 +1,32 @@
-[gd_scene load_steps=9 format=3 uid="uid://c21ry5kp12e2h"]
+[gd_scene load_steps=7 format=3 uid="uid://c21ry5kp12e2h"]
 
-[ext_resource type="Script" uid="uid://1myeegx0xyw" path="res://taiko_vr/menu/song_menu.gd" id="1_a741p"]
 [ext_resource type="Environment" uid="uid://b2nnm2yjt4f5v" path="res://taiko_vr/menu/menu_environment.tres" id="1_nurl8"]
 [ext_resource type="PackedScene" uid="uid://c48gap7hpf2o1" path="res://taiko_vr/menu/song_menu_2d.tscn" id="2_4vbcf"]
 [ext_resource type="PackedScene" uid="uid://cpfv4fuufyy8c" path="res://vr_controls/vr_camera.tscn" id="2_77ehc"]
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_4vbcf"]
-viewport_path = NodePath("SubViewport")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a741p"]
-resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_4vbcf")
-
-[sub_resource type="QuadMesh" id="QuadMesh_n4jhw"]
-material = SubResource("StandardMaterial3D_a741p")
-size = Vector2(10, 5)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_a741p"]
-size = Vector3(10, 5, 0.01)
+[ext_resource type="PackedScene" uid="uid://ctltchlf2j2r4" path="res://addons/xr-simulator/XRSimulator.tscn" id="2_rlmn8"]
+[ext_resource type="PackedScene" uid="uid://b5nfewee0rmcu" path="res://vr_controls/pointer_controller.tscn" id="5_yjmmv"]
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="7_yjmmv"]
 
 [node name="SongMenu" type="Node3D"]
-script = ExtResource("1_a741p")
+
+[node name="XRSimulator" parent="." instance=ExtResource("2_rlmn8")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("1_nurl8")
 
-[node name="SubViewport" type="SubViewport" parent="."]
-size = Vector2i(2048, 1024)
-
-[node name="SongMenu2d" parent="SubViewport" instance=ExtResource("2_4vbcf")]
-
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
+
+[node name="RightPointerController" parent="XROrigin3D" instance=ExtResource("5_yjmmv")]
+tracker = &"right_hand"
+
+[node name="LeftPointerController" parent="XROrigin3D" instance=ExtResource("5_yjmmv")]
+tracker = &"left_hand"
 
 [node name="VrCamera" parent="XROrigin3D" instance=ExtResource("2_77ehc")]
 
-[node name="MenuScreen" type="MeshInstance3D" parent="."]
+[node name="Viewport2Din3D" parent="." instance=ExtResource("7_yjmmv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -7)
-mesh = SubResource("QuadMesh_n4jhw")
-
-[node name="Area3D" type="Area3D" parent="MenuScreen"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MenuScreen/Area3D"]
-shape = SubResource("BoxShape3D_a741p")
+screen_size = Vector2(10, 5)
+scene = ExtResource("2_4vbcf")
+viewport_size = Vector2(2048, 1024)
+scene_properties_keys = PackedStringArray("song_menu_2d.gd")

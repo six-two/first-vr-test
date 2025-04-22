@@ -27,6 +27,10 @@ window/size/viewport_height=800
 
 project/assembly_name="First VR test"
 
+[filesystem]
+
+import/blender/enabled=false
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
