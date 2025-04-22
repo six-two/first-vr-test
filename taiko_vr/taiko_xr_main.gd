@@ -1,6 +1,8 @@
 extends Node
 
 var mapping_mode : bool = false
+var SongData = preload("res://taiko_vr/songs/song_data.gd")
+
 
 func _ready():
 	var drumb = $Drumb/Head
@@ -8,6 +10,7 @@ func _ready():
 	script.init(drumb)
 	
 	$AudioStreamPlayer.play()
+	SongData.current_score = SongData.SongScore.new()
 	
 	if mapping_mode:
 		$JudgementLine.set_script(load("res://taiko_vr/mapping_mode.gd"))
@@ -26,13 +29,17 @@ func _ready():
 func _on_note_miss(input_type, node):
 	var node_str = node.to_str() if node else "null"
 	print("Note: Miss (", input_type, " / ", node_str, ")")
+	SongData.current_score.miss += 1
 
 func _on_note_ok():
 	print("Note: OK")
+	SongData.current_score.ok += 1
 	
 func _on_note_perfect():
 	print("Note: Perfect")
+	SongData.current_score.perfect += 1
 
 func _on_song_finished():
 	print("Song finished")
-	get_tree().change_scene_to_packed(load("res://taiko_vr/menu/song_menu.tscn"))
+	# @TODO: make this a 3D screen
+	get_tree().change_scene_to_packed(load("res://taiko_vr/menu/score_screen.tscn"))

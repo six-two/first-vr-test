@@ -6,6 +6,11 @@ class SongData:
 	var source: String
 	var notes_str: String
 	var beat_seconds: float
+	
+class SongScore:
+	var perfect: int = 0
+	var ok: int = 0
+	var miss: int = 0
 
 static func new_song(song_name, artist, source, notes_str, beat_seconds):
 	var song = SongData.new()
@@ -17,6 +22,7 @@ static func new_song(song_name, artist, source, notes_str, beat_seconds):
 	return song
 
 static var current_song
+static var current_score
 
 static var SONG_LIST = [
 	new_song(

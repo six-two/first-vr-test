@@ -1,0 +1,68 @@
+[gd_scene load_steps=3 format=3 uid="uid://cijvc7al2um8p"]
+
+[ext_resource type="Script" uid="uid://62ilh5i03ii8" path="res://taiko_vr/menu/score_screen.gd" id="1_0p2ib"]
+[ext_resource type="Theme" uid="uid://bpaigbsplgsv8" path="res://taiko_vr/menu/menu_theme.tres" id="2_ni8al"]
+
+[node name="PanelContainer" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0p2ib")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 2
+color = Color(0.619489, 0.619489, 0.619489, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Your Score"
+horizontal_alignment = 1
+
+[node name="Rank" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 70
+text = "Rank TODO"
+horizontal_alignment = 1
+
+[node name="Combo" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "All Perfect / Full Combo / 80.1%"
+horizontal_alignment = 1
+
+[node name="Details" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("2_ni8al")
+text = "Perfect: 10 (66.6%)
+Good: 4 (26.6%)
+Miss: 1 (6.6%)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="ReplayButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+text = "Replay"
+
+[node name="MenuButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+text = "Back to Menu"
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/ReplayButton" to="." method="_on_button_replay_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/MenuButton" to="." method="_on_button_menu_pressed"]
