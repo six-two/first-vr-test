@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://c21ry5kp12e2h"]
+
+[ext_resource type="PackedScene" uid="uid://ctltchlf2j2r4" path="res://addons/xr-simulator/XRSimulator.tscn" id="1_hg5hm"]
+[ext_resource type="Script" uid="uid://n1h1hrksxq8o" path="res://taiko_vr/menu/menu_room.gd" id="1_ufge0"]
+[ext_resource type="Environment" uid="uid://b2nnm2yjt4f5v" path="res://taiko_vr/menu/menu_environment.tres" id="2_ufge0"]
+[ext_resource type="PackedScene" uid="uid://b5nfewee0rmcu" path="res://vr_controls/pointer_controller.tscn" id="3_8rw76"]
+[ext_resource type="PackedScene" uid="uid://cpfv4fuufyy8c" path="res://vr_controls/vr_camera.tscn" id="4_iyl5k"]
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="5_wii3f"]
+
+[node name="SongMenu" type="Node3D"]
+script = ExtResource("1_ufge0")
+
+[node name="XRSimulator" parent="." instance=ExtResource("1_hg5hm")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("2_ufge0")
+
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+
+[node name="RightPointerController" parent="XROrigin3D" instance=ExtResource("3_8rw76")]
+tracker = &"right_hand"
+
+[node name="LeftPointerController" parent="XROrigin3D" instance=ExtResource("3_8rw76")]
+tracker = &"left_hand"
+
+[node name="VrCamera" parent="XROrigin3D" instance=ExtResource("4_iyl5k")]
+
+[node name="Viewport2Din3D" parent="." instance=ExtResource("5_wii3f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -7)
+screen_size = Vector2(10, 5)
+viewport_size = Vector2(2048, 1024)

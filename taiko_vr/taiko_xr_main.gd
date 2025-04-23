@@ -3,7 +3,6 @@ extends Node
 var mapping_mode : bool = false
 var SongData = preload("res://taiko_vr/songs/song_data.gd")
 
-
 func _ready():
 	var drumb = $Drumb/Head
 	var script = load("res://taiko_vr/change_controller_color_listener.gd").new()
@@ -41,5 +40,4 @@ func _on_note_perfect():
 
 func _on_song_finished():
 	print("Song finished")
-	# @TODO: make this a 3D screen
-	get_tree().change_scene_to_packed(load("res://taiko_vr/menu/score_screen.tscn"))
+	GlobalState.show_menu_room(get_tree(), "res://taiko_vr/menu/score_screen.tscn")

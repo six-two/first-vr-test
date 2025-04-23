@@ -7,7 +7,7 @@ var type
 
 signal song_finished
 # @TODO design: should I make different signals for big notes only being hit once, or should I just always count them as OK?
-signal note_miss(input, note)
+signal note_miss(input : String, note)
 signal note_ok
 signal note_perfect
 
@@ -19,9 +19,8 @@ var last_note_index : int = 0
 
 func init(drumb):
 	var notes_str = SongData.current_song.notes_str
-	#var notes_str = "  cc cc ccc e cccc e cccc e cccc e c ccce cccc e c ccce c ccce c ccc ecccc cce ccc e ccccc cc ccce cccc ccc ccc ec cc"
 	beat_seconds = 0.2
-	remaining_time = notes_str.length() * beat_seconds
+	remaining_time = notes_str.length() * beat_seconds + TaikoConst.NOTE_MISS_SECONDS + 0.1
 	
 	notes = []
 	var beat_time = 0
@@ -53,6 +52,8 @@ func get_next_note():
 		# A note was partially hit, and it did not get hit again -> OK score
 		if note.state == TaikoConst.NoteState.PARTIALLY_HIT:
 			note_ok.emit()
+		elif note.state == TaikoConst.NoteState.NOT_HIT:
+			note_miss.emit(null, note)
 
 		last_note_index += 1
 		
@@ -130,6 +131,9 @@ func _on_drumb_exited(body):
 
 func _process(delta: float) -> void:
 	remaining_time -= delta
+	
+	# Check notes, so that we trigger some OKs and MISSes on time
+	get_next_note()
 
 	# Only send the song finished event once
 	if remaining_time < 0 and remaining_time > -1000:

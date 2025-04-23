@@ -1,9 +1,7 @@
 extends PanelContainer
 
 var SongData = preload("res://taiko_vr/songs/song_data.gd")
-static var scene_taiko_vr_play = preload("res://taiko_vr/taiko_xr_main.tscn")
-static var scene_song_menu = preload("res://taiko_vr/menu/song_menu.tscn")
-
+var scene_replay_song = preload("res://taiko_vr/taiko_xr_main.tscn")
 
 func _ready():
 	var perfect = SongData.current_score.perfect
@@ -12,7 +10,7 @@ func _ready():
 	
 	var score = perfect + 0.5 * ok
 	var count = perfect + ok + miss
-	var percent = score / count
+	var percent = 100 * (score / count)
 	
 	var rank
 	var combo
@@ -21,7 +19,7 @@ func _ready():
 	elif miss == 0:
 		combo = "Full Combo"
 	else:
-		combo = "%.1" % percent
+		combo = "%.1f%%" % percent
 	
 	# Inspired partially by https://myjian.github.io/mai-tools/rating-visualizer/, to be tweaked later
 	if percent > 99:
@@ -46,7 +44,9 @@ func _ready():
 	$VBoxContainer/Details.text = "Perfect: %s\nOK: %s\nMiss: %s" % [perfect, ok, miss]
 
 func _on_button_replay_pressed():
-	get_tree().change_scene_to_packed(scene_taiko_vr_play)
+	print("Replay Song")
+	get_tree().change_scene_to_packed(scene_replay_song)
 
 func _on_button_menu_pressed():
-	get_tree().change_scene_to_packed(scene_song_menu)
+	print("Return to Menu")
+	GlobalState.show_menu_room(get_tree(), "res://taiko_vr/menu/song_menu_2d.tscn")

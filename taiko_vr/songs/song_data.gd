@@ -26,17 +26,17 @@ static var current_score
 
 static var SONG_LIST = [
 	new_song(
+		"EDM Dance Club Music (2s)",
+		"LudoSoundX",
+		"https://pixabay.com/music/future-bass-edm-dance-club-music-259530/",
+		"  cc ",
+		0.2 
+	),
+	new_song(
 		"EDM Dance Club Music",
 		"LudoSoundX",
 		"https://pixabay.com/music/future-bass-edm-dance-club-music-259530/",
 		"  cc cc ccc e cccc e cccc e cccc e c ccce cccc e c ccce c ccce c ccc ecccc cce ccc e ccccc cc ccce cccc ccc ccc ec cc",
-		0.2 
-	),
-	new_song(
-		"EDM Dance Club Music (test)",
-		"LudoSoundX",
-		"https://pixabay.com/music/future-bass-edm-dance-club-music-259530/",
-		"  cc ",
 		0.5
 	),
 ]
