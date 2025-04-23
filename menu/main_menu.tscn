@@ -12,27 +12,35 @@ offset_bottom = 645.0
 color = Color(0.65834, 0.65834, 0.65834, 1)
 
 [node name="VRButton" type="Button" parent="."]
-offset_left = 114.0
-offset_top = 74.0
-offset_right = 528.0
-offset_bottom = 272.0
+offset_left = 38.0
+offset_top = 91.0
+offset_right = 400.0
+offset_bottom = 239.0
 theme_override_font_sizes/font_size = 70
 text = "Enter VR"
 
+[node name="TutorialButton" type="Button" parent="."]
+offset_left = 777.0
+offset_top = 90.0
+offset_right = 1096.0
+offset_bottom = 238.0
+theme_override_font_sizes/font_size = 40
+text = "Tutorial"
+
 [node name="FlatScreenButton" type="Button" parent="."]
-offset_left = 625.0
-offset_top = 74.0
-offset_right = 1039.0
-offset_bottom = 272.0
+offset_left = 431.0
+offset_top = 91.0
+offset_right = 742.0
+offset_bottom = 237.0
 theme_override_font_sizes/font_size = 30
 text = "Non-VR mode
 (for development)"
 
 [node name="ErrorText" type="Label" parent="."]
-offset_left = 135.0
-offset_top = 332.0
-offset_right = 1037.0
-offset_bottom = 439.0
+offset_left = 145.0
+offset_top = 376.0
+offset_right = 1047.0
+offset_bottom = 483.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 30
 text = "Please press \"Enter VR\" and allow this page to start an immersive experience (VR Session)"
@@ -44,12 +52,16 @@ layout_mode = 1
 anchors_preset = -1
 anchor_top = -0.187
 anchor_bottom = -0.187
-offset_left = -1.0
-offset_top = 148.009
-offset_right = 860.0
-offset_bottom = 271.009
+offset_left = 6.0
+offset_top = 127.009
+offset_right = 867.0
+offset_bottom = 250.009
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 30
 text = "This is a very early prototype and pretty broken as a result. I take no blame if it crashes your headset ;)"
 vertical_alignment = 1
 autowrap_mode = 3
+
+[connection signal="pressed" from="VRButton" to="." method="_on_button_vr_pressed"]
+[connection signal="pressed" from="TutorialButton" to="." method="_on_button_tutorial_pressed"]
+[connection signal="pressed" from="FlatScreenButton" to="." method="_on_button_flat_pressed"]

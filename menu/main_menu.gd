@@ -5,9 +5,6 @@ var webxr_interface
 
 
 func _ready() -> void:
-	$VRButton.pressed.connect(self._on_button_vr_pressed)
-	$FlatScreenButton.pressed.connect(self._on_button_flat_pressed)
-
 	webxr_interface = XRServer.find_interface("WebXR")
 	if webxr_interface:
 		# WebXR uses a lot of asynchronous callbacks, so we connect to various
@@ -29,9 +26,11 @@ func _webxr_session_supported(session_mode: String, supported: bool) -> void:
  
 
 func _on_button_flat_pressed() -> void:
-	self.visible = false
-
 	GlobalState.show_menu_room(get_tree(), "res://taiko_vr/menu/song_menu_2d.tscn")
+
+func _on_button_tutorial_pressed() -> void:
+	# Open URL in a web browser
+	OS.shell_open("https://github.com/six-two/first-vr-test/blob/main/taiko_vr/tutorial.md")
 
 
 func _on_button_vr_pressed() -> void:
@@ -61,8 +60,6 @@ func _on_button_vr_pressed() -> void:
 		$ErrorText.text = "Failed to get WebXR context"
  
 func _webxr_session_started() -> void:
-	self.visible = false
-	
 	# This tells Godot to start rendering to the headset.
 	get_viewport().use_xr = true
 	# This will be the reference space type you ultimately got, out of the

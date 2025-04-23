@@ -8,6 +8,7 @@ But hey, it is a learning project for me.
 
 If you want to try it out, put on your headset, open <https://first-vr-test.vercel.app> in the headset's web browser and click `Start VR`.
 I only have tested it with Quest headsets, so it may not work for other headsets.
+A very basic description of the goal and key bindings is described [here](taiko_vr/tutorial.md).
 
 ## Build from source
 
