@@ -1,67 +1,61 @@
-[gd_scene load_steps=2 format=3 uid="uid://cfu8ps3d5gxse"]
+[gd_scene load_steps=3 format=3 uid="uid://cfu8ps3d5gxse"]
 
 [ext_resource type="Script" uid="uid://f44dnb25l18g" path="res://menu/main_menu.gd" id="1_chmv6"]
+[ext_resource type="Theme" uid="uid://bpaigbsplgsv8" path="res://taiko_vr/menu/menu_theme.tres" id="2_f5okj"]
 
 [node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource("1_chmv6")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_left = 1.0
-offset_right = 1151.0
-offset_bottom = 645.0
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer"]
+layout_mode = 2
 color = Color(0.65834, 0.65834, 0.65834, 1)
 
-[node name="VRButton" type="Button" parent="."]
-offset_left = 38.0
-offset_top = 91.0
-offset_right = 400.0
-offset_bottom = 239.0
-theme_override_font_sizes/font_size = 70
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 60
+text = "First VR Test"
+horizontal_alignment = 1
+
+[node name="VRButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_f5okj")
 text = "Enter VR"
 
-[node name="TutorialButton" type="Button" parent="."]
-offset_left = 777.0
-offset_top = 90.0
-offset_right = 1096.0
-offset_bottom = 238.0
-theme_override_font_sizes/font_size = 40
+[node name="FlatScreenButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_f5okj")
+text = "Non-VR mode"
+
+[node name="TutorialButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_f5okj")
 text = "Tutorial"
 
-[node name="FlatScreenButton" type="Button" parent="."]
-offset_left = 431.0
-offset_top = 91.0
-offset_right = 742.0
-offset_bottom = 237.0
-theme_override_font_sizes/font_size = 30
-text = "Non-VR mode
-(for development)"
-
-[node name="ErrorText" type="Label" parent="."]
-offset_left = 145.0
-offset_top = 376.0
-offset_right = 1047.0
-offset_bottom = 483.0
+[node name="ErrorText" type="Label" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 30
-text = "Please press \"Enter VR\" and allow this page to start an immersive experience (VR Session)"
-vertical_alignment = 1
-autowrap_mode = 3
-
-[node name="ErrorText" type="Label" parent="ErrorText"]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = -0.187
-anchor_bottom = -0.187
-offset_left = 6.0
-offset_top = 127.009
-offset_right = 867.0
-offset_bottom = 250.009
-theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 30
 text = "This is a very early prototype and pretty broken as a result. I take no blame if it crashes your headset ;)"
 vertical_alignment = 1
 autowrap_mode = 3
 
-[connection signal="pressed" from="VRButton" to="." method="_on_button_vr_pressed"]
-[connection signal="pressed" from="TutorialButton" to="." method="_on_button_tutorial_pressed"]
-[connection signal="pressed" from="FlatScreenButton" to="." method="_on_button_flat_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VRButton" to="." method="_on_button_vr_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/FlatScreenButton" to="." method="_on_button_flat_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/TutorialButton" to="." method="_on_button_tutorial_pressed"]
