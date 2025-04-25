@@ -1,0 +1,56 @@
+[gd_scene load_steps=10 format=3 uid="uid://dljifdhuyb5ia"]
+
+[ext_resource type="Script" uid="uid://bqfoxo7ef5c31" path="res://taiko_vr/mapping/main.gd" id="1_p6ymd"]
+[ext_resource type="PackedScene" uid="uid://bo6t1gw5eket4" path="res://taiko_vr/drumb.tscn" id="2_qbd37"]
+[ext_resource type="Script" uid="uid://bm081j0oah58f" path="res://vr_controls/player_movement.gd" id="3_sfpvi"]
+[ext_resource type="PackedScene" uid="uid://cp67yib0jrtvg" path="res://vr_controls/ball_controller.tscn" id="4_2x8g7"]
+[ext_resource type="AudioStream" uid="uid://cpba4nhx7d4lv" path="res://music/edm-dance-club-music-259530.mp3" id="5_pe58t"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_608u1"]
+albedo_color = Color(0.052192, 0.052192, 0.0497937, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_e1u4u"]
+material = SubResource("StandardMaterial3D_608u1")
+size = Vector2(10000, 10000)
+
+[sub_resource type="Environment" id="Environment_k0sh0"]
+background_mode = 1
+background_color = Color(0.142537, 0.685933, 0.891964, 1)
+ambient_light_color = Color(1, 1, 1, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_e1u4u"]
+height = 1.8
+radius = 0.2
+
+[node name="Root" type="Node3D"]
+script = ExtResource("1_p6ymd")
+
+[node name="Drumb" parent="." instance=ExtResource("2_qbd37")]
+transform = Transform3D(1, 0, 0, 0, 0.817879, -0.575391, 0, 0.575391, 0.817879, -0.076572, 0.507955, -1.3665)
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_e1u4u")
+skeleton = NodePath("../WorldEnvironment")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_k0sh0")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+
+[node name="XROrigin3D" type="XROrigin3D" parent="CharacterBody3D"]
+current = true
+script = ExtResource("3_sfpvi")
+
+[node name="XRCamera3D" type="XRCamera3D" parent="CharacterBody3D/XROrigin3D"]
+
+[node name="LeftController" parent="CharacterBody3D/XROrigin3D" instance=ExtResource("4_2x8g7")]
+tracker = &"left_hand"
+
+[node name="RightController" parent="CharacterBody3D/XROrigin3D" instance=ExtResource("4_2x8g7")]
+tracker = &"right_hand"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CylinderShape3D_e1u4u")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_pe58t")

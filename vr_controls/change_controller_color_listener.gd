@@ -1,4 +1,4 @@
-extends Node
+extends "res://vr_controls/ball_controller.gd"
 
 static var center_material = preload("res://taiko_vr/assets/center_material.tres")
 static var edge_material = preload("res://taiko_vr/assets/edge_material.tres")

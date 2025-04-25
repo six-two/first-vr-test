@@ -39,10 +39,22 @@ Length: Placeholder
 Speed: Placeholder
 Source: Placeholder"
 
-[node name="PlayButton" type="Button" parent="SplitContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SplitContainer/VBoxContainer"]
 layout_mode = 2
+
+[node name="EditButton" type="Button" parent="SplitContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+text = "Edit"
+
+[node name="PlayButton" type="Button" parent="SplitContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
 theme_override_font_sizes/font_size = 50
 text = "Play"
 
 [connection signal="item_selected" from="SplitContainer/ItemList" to="." method="_on_item_list_item_selected"]
-[connection signal="pressed" from="SplitContainer/VBoxContainer/PlayButton" to="." method="_on_button_play_pressed"]
+[connection signal="pressed" from="SplitContainer/VBoxContainer/HBoxContainer/EditButton" to="." method="_on_button_play_pressed"]
+[connection signal="pressed" from="SplitContainer/VBoxContainer/HBoxContainer/PlayButton" to="." method="_on_button_play_pressed"]

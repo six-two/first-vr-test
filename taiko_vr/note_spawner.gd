@@ -1,37 +1,39 @@
 extends Node3D
 
-var beat_seconds # how long a beat takes
 var remaining_time
 var notes
 var type
 
 signal song_finished
-# @TODO design: should I make different signals for big notes only being hit once, or should I just always count them as OK?
 signal note_miss(input : String, note)
 signal note_ok
 signal note_perfect
 
 static var NoteScene: PackedScene = preload("res://taiko_vr/small_note.tscn")
-var SongData = preload("res://taiko_vr/songs/song_data.gd")
+const SongData = preload("res://taiko_vr/songs/song_data.gd")
 
 var area_to_type_map : Dictionary = {}
 var last_note_index : int = 0
 
 func init(drumb):
 	var notes_str = SongData.current_song.notes_str
-	beat_seconds = 0.2
-	remaining_time = notes_str.length() * beat_seconds + TaikoConst.NOTE_MISS_SECONDS + 0.1
-	
+	remaining_time = notes_str.length() * SongData.current_song.beat_seconds + TaikoConst.NOTE_MISS_SECONDS + 0.1
+
 	notes = []
 	var beat_time = 0
-	for char in notes_str:
+	for char in SongData.current_song.notes_str:
 		if char in ["c", "e", "C", "E"]:
 			var note = NoteScene.instantiate()
 			note.init(char, beat_time)
 			notes.append(note)
 			self.add_child(note)
-		# do nothing for space, etc
-		beat_time += beat_seconds
+		elif char == " ":
+			# do nothing for space
+			pass
+		else:
+			print("Unexpected note: ", char)
+
+		beat_time += SongData.current_song.beat_seconds
 		
 	drumb.connect("drumb_center_hit", self._on_drumb_center_hit)
 	drumb.connect("drumb_edge_hit", self._on_drumb_edge_hit)
@@ -68,13 +70,9 @@ func get_next_note():
 		return null
 
 func judge_input(type) -> void:
-	var note = get_next_note()
-	if type == "e":
-		for note_i in notes:
-			print("- " + note_i.to_str())
-	
+	var note = get_next_note()	
 	if note:
-		print("judge: ", type, note.to_str())
+		#print("judge: ", type, note.to_str())
 		if note.type == "c" or note.type == "e":
 			if note.type == type:
 				if abs(note.remaining_time) <= TaikoConst.NOTE_PERFECT_SECONDS:

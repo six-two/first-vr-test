@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://b1llf5v8a3cpv" path="res://taiko_vr/taiko_xr_main.gd" id="1_e1u4u"]
 [ext_resource type="PackedScene" uid="uid://cp67yib0jrtvg" path="res://vr_controls/ball_controller.tscn" id="2_8n60k"]
 [ext_resource type="Script" uid="uid://bm081j0oah58f" path="res://vr_controls/player_movement.gd" id="2_e1u4u"]
+[ext_resource type="Script" uid="uid://cv10t1q6llkhi" path="res://taiko_vr/note_spawner.gd" id="3_v3wda"]
 [ext_resource type="PackedScene" uid="uid://bo6t1gw5eket4" path="res://taiko_vr/drumb.tscn" id="4_d77il"]
-[ext_resource type="AudioStream" uid="uid://cpba4nhx7d4lv" path="res://music/edm-dance-club-music-259530.mp3" id="6_v3wda"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_608u1"]
 albedo_color = Color(0.052192, 0.052192, 0.0497937, 1)
@@ -45,9 +45,16 @@ environment = SubResource("Environment_k0sh0")
 
 [node name="JudgementLine" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1.5, -6)
+script = ExtResource("3_v3wda")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="JudgementLine"]
 mesh = SubResource("BoxMesh_d77il")
+
+[node name="NoteFeedback" type="Label3D" parent="JudgementLine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.637828, 0)
+billboard = 1
+text = "Test"
+font_size = 50
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
 
@@ -67,4 +74,3 @@ tracker = &"right_hand"
 shape = SubResource("CylinderShape3D_e1u4u")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_v3wda")

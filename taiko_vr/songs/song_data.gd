@@ -6,17 +6,19 @@ class SongData:
 	var source: String
 	var notes_str: String
 	var beat_seconds: float
+	var audio_stream_path: String
 	
 class SongScore:
 	var perfect: int = 0
 	var ok: int = 0
 	var miss: int = 0
 
-static func new_song(song_name, artist, source, notes_str, beat_seconds):
+static func new_song(song_name, artist, source, audio_stream_path, notes_str, beat_seconds):
 	var song = SongData.new()
 	song.song_name = song_name
 	song.artist = artist
 	song.source = source
+	song.audio_stream_path = audio_stream_path
 	song.notes_str = notes_str
 	song.beat_seconds = beat_seconds
 	return song
@@ -29,6 +31,7 @@ static var SONG_LIST = [
 		"EDM Dance Club Music (2s)",
 		"LudoSoundX",
 		"https://pixabay.com/music/future-bass-edm-dance-club-music-259530/",
+		"res://music/edm-dance-club-music-259530.mp3",
 		"  cc ",
 		0.2 
 	),
@@ -36,6 +39,7 @@ static var SONG_LIST = [
 		"EDM Dance Club Music",
 		"LudoSoundX",
 		"https://pixabay.com/music/future-bass-edm-dance-club-music-259530/",
+		"res://music/edm-dance-club-music-259530.mp3",
 		"  cc cc ccc e cccc e cccc e cccc e c ccce cccc e c ccce c ccce c ccc ecccc cce ccc e ccccc cc ccce cccc ccc ccc ec cc",
 		0.5
 	),
