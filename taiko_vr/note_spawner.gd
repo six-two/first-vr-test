@@ -4,6 +4,7 @@ var remaining_time
 var notes
 var type
 
+signal song_started
 signal song_finished
 signal note_miss(input : String, note)
 signal note_ok
@@ -14,14 +15,24 @@ const SongData = preload("res://taiko_vr/songs/song_data.gd")
 
 var area_to_type_map : Dictionary = {}
 var last_note_index : int = 0
+var paused = true
 
-func init(drumb):
+func _ready() -> void:
+	paused = true
+	for drumb in get_tree().get_nodes_in_group("DrumbHead"):
+		drumb.connect("drumb_center_hit", self._on_drumb_center_hit)
+		drumb.connect("drumb_edge_hit", self._on_drumb_edge_hit)
+		drumb.connect("drumb_exited", self._on_drumb_exited)
+		
+	
+
+func start():
 	var notes_str = SongData.current_song.notes_str
 	remaining_time = notes_str.length() * SongData.current_song.beat_seconds + TaikoConst.NOTE_MISS_SECONDS + 0.1
 
 	notes = []
 	var beat_time = 0
-	for char in SongData.current_song.notes_str:
+	for char in notes_str:
 		if char in ["c", "e", "C", "E"]:
 			var note = NoteScene.instantiate()
 			note.init(char, beat_time)
@@ -34,11 +45,8 @@ func init(drumb):
 			print("Unexpected note: ", char)
 
 		beat_time += SongData.current_song.beat_seconds
-		
-	drumb.connect("drumb_center_hit", self._on_drumb_center_hit)
-	drumb.connect("drumb_edge_hit", self._on_drumb_edge_hit)
-	drumb.connect("drumb_exited", self._on_drumb_exited)
 
+	paused = false
 
 func get_next_note():
 	# Find the next note, that is not past the input window
@@ -70,6 +78,11 @@ func get_next_note():
 		return null
 
 func judge_input(type) -> void:
+	if paused:
+		start()
+		song_started.emit()
+		return
+	
 	var note = get_next_note()
 	if note:
 		#print("judge: ", type, note.to_str())
@@ -128,12 +141,13 @@ func _on_drumb_exited(body):
 
 
 func _process(delta: float) -> void:
-	remaining_time -= delta
-	
-	# Check notes, so that we trigger some OKs and MISSes on time
-	get_next_note()
+	if not paused:
+		remaining_time -= delta
+		
+		# Check notes, so that we trigger some OKs and MISSes on time
+		get_next_note()
 
-	# Only send the song finished event once
-	if remaining_time < 0 and remaining_time > -1000:
-		song_finished.emit()
-		remaining_time = -10000
+		# Only send the song finished event once
+		if remaining_time < 0 and remaining_time > -1000:
+			song_finished.emit()
+			remaining_time = -10000

@@ -39,7 +39,7 @@ radius = 0.23
 [node name="Body" type="MeshInstance3D" parent="."]
 mesh = SubResource("CylinderMesh_mcgeg")
 
-[node name="Head" type="Node3D" parent="."]
+[node name="Head" type="Node3D" parent="." groups=["DrumbHead"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.275, 0)
 script = ExtResource("1_mcgeg")
 

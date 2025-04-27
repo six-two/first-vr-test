@@ -3,12 +3,16 @@
 [ext_resource type="Script" uid="uid://cqjxspc3nlfv4" path="res://vr_controls/ball_controller.gd" id="1_6rqjg"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_cp7gx"]
+margin = 0.005
+radius = 0.05
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mxae5"]
 shading_mode = 0
 
 [sub_resource type="SphereMesh" id="SphereMesh_nclek"]
 material = SubResource("StandardMaterial3D_mxae5")
+radius = 0.05
+height = 0.1
 
 [node name="Controller" type="XRController3D"]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)

@@ -3,6 +3,7 @@ extends Node
 var SongData = preload("res://taiko_vr/songs/song_data.gd")
 var SongScore = preload("res://taiko_vr/songs/score.gd")
 var hide_note_feedback_in_seconds: float = 0
+var started = false
 
 func _ready():
 	var drumb = $Drumb/Head
@@ -11,15 +12,8 @@ func _ready():
 	set_note_feedback("")
 	
 	$AudioStreamPlayer.stream = load(SongData.current_song.audio_stream_path)
-	$AudioStreamPlayer.play()
 	SongData.current_score = SongScore.BasicScore.new()
 
-	$JudgementLine.init(drumb)
-
-	$JudgementLine.connect("song_finished", _on_song_finished)
-	$JudgementLine.connect("note_miss", _on_note_miss)
-	$JudgementLine.connect("note_ok", _on_note_ok)
-	$JudgementLine.connect("note_perfect", _on_note_perfect)
 	
 func set_note_feedback(text):
 	$JudgementLine/NoteFeedback.text = text
@@ -41,6 +35,11 @@ func _on_note_perfect():
 	print("Note: Perfect")
 	SongData.current_score.perfect += 1
 	set_note_feedback("Perfect")
+
+func _on_song_started():
+	print("Song started")
+	$AudioStreamPlayer.play()
+	$IntroLabel3D.visible = false
 
 func _on_song_finished():
 	print("Song finished")

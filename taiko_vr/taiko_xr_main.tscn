@@ -30,6 +30,12 @@ radius = 0.2
 [node name="Root" type="Node3D"]
 script = ExtResource("1_e1u4u")
 
+[node name="IntroLabel3D" type="Label3D" parent="."]
+transform = Transform3D(1.12847, 0, 0, 0, 1.12794, -0.0344027, 0, 0.0344027, 1.12794, 0, 1.18648, -2.63284)
+billboard = 1
+text = "Hit the drumb
+to start the song"
+
 [node name="Drumb" parent="." instance=ExtResource("4_d77il")]
 transform = Transform3D(1, 0, 0, 0, 0.817879, -0.575391, 0, 0.575391, 0.817879, -0.076572, 0.507955, -1.3665)
 
@@ -71,3 +77,9 @@ tracker = &"right_hand"
 shape = SubResource("CylinderShape3D_e1u4u")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[connection signal="note_miss" from="JudgementLine" to="." method="_on_note_miss"]
+[connection signal="note_ok" from="JudgementLine" to="." method="_on_note_ok"]
+[connection signal="note_perfect" from="JudgementLine" to="." method="_on_note_perfect"]
+[connection signal="song_finished" from="JudgementLine" to="." method="_on_song_finished"]
+[connection signal="song_started" from="JudgementLine" to="." method="_on_song_started"]

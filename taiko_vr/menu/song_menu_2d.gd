@@ -24,8 +24,8 @@ func _on_item_list_item_selected(index: int) -> void:
 	print("Selected item:", selected_song.song_name)
 	$SplitContainer/VBoxContainer/RichTextLabel.text = "Title: %s
 Artist: %s
-Length: %s
-Speed: %s
+Length: %d seconds
+Speed: up to %.1f notes per second
 Source: %s" % [
 	selected_song.song_name,
 	selected_song.artist,
@@ -36,7 +36,7 @@ Source: %s" % [
 	var highscore = Highscores.get_highscore(selected_song)
 	var text
 	if highscore:
-		text = "Highscore: %s" % highscore.percent
+		text = "Highscore: %.1f%%" % highscore.percent
 		if highscore.all_perfect:
 			text += " | All Perfect"
 		elif highscore.full_combo:
