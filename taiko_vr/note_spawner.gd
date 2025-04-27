@@ -70,7 +70,7 @@ func get_next_note():
 		return null
 
 func judge_input(type) -> void:
-	var note = get_next_note()	
+	var note = get_next_note()
 	if note:
 		#print("judge: ", type, note.to_str())
 		if note.type == "c" or note.type == "e":

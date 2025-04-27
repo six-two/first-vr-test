@@ -7,7 +7,7 @@ func _ready() -> void:
 	$LeftController/Area3D.name = "LeftControllerArea"
 	$RightController/Area3D.name = "RightControllerArea"
 	
-	$XRCamera3D.add_to_group("Camera")
+	$VrCamera.add_to_group("Camera")
 
 func _physics_process(delta):
 #func _process(delta: float) -> void:
@@ -16,7 +16,7 @@ func _physics_process(delta):
 
 	if input_vec.length() > 0.1:
 		# Optional: rotate input by camera's orientation so movement matches where you're looking
-		var camera = $XRCamera3D
+		var camera = $VrCamera
 		var forward = -camera.global_transform.basis.z
 		var right = camera.global_transform.basis.x
 

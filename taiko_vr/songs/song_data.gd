@@ -7,11 +7,8 @@ class SongData:
 	var notes_str: String
 	var beat_seconds: float
 	var audio_stream_path: String
-	
-class SongScore:
-	var perfect: int = 0
-	var ok: int = 0
-	var miss: int = 0
+	var id: String # this is the ID that we use to reference the song, for example in save files
+	# As such it should be deterministic and based on the songs unchanging characteristics (like name and artist)
 
 static func new_song(song_name, artist, source, audio_stream_path, notes_str, beat_seconds):
 	var song = SongData.new()
@@ -21,7 +18,14 @@ static func new_song(song_name, artist, source, audio_stream_path, notes_str, be
 	song.audio_stream_path = audio_stream_path
 	song.notes_str = notes_str
 	song.beat_seconds = beat_seconds
+	# Generate the ID after all other values have been assigned
+	song.id = generate_song_id(song)
 	return song
+
+static func generate_song_id(song: SongData) -> String:
+	var fingerprint = "%s\n%s\n%s" % [song.song_name, song.artist, song.source]
+	return fingerprint.sha256_text()
+
 
 static var current_song
 static var current_score

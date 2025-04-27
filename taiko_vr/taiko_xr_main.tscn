@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://bm081j0oah58f" path="res://vr_controls/player_movement.gd" id="2_e1u4u"]
 [ext_resource type="Script" uid="uid://cv10t1q6llkhi" path="res://taiko_vr/note_spawner.gd" id="3_v3wda"]
 [ext_resource type="PackedScene" uid="uid://bo6t1gw5eket4" path="res://taiko_vr/drumb.tscn" id="4_d77il"]
+[ext_resource type="PackedScene" uid="uid://cpfv4fuufyy8c" path="res://vr_controls/vr_camera.tscn" id="5_v3wda"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_608u1"]
 albedo_color = Color(0.052192, 0.052192, 0.0497937, 1)
@@ -18,13 +19,9 @@ background_mode = 1
 background_color = Color(0.142537, 0.685933, 0.891964, 1)
 ambient_light_color = Color(1, 1, 1, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v3wda"]
-shading_mode = 0
-albedo_color = Color(0.374139, 0.374139, 0.374139, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_d77il"]
-material = SubResource("StandardMaterial3D_v3wda")
-size = Vector3(0.1, 1, 1)
+[sub_resource type="SphereMesh" id="SphereMesh_v3wda"]
+radius = 0.19
+height = 0.38
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_e1u4u"]
 height = 1.8
@@ -48,7 +45,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1.5, -6)
 script = ExtResource("3_v3wda")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="JudgementLine"]
-mesh = SubResource("BoxMesh_d77il")
+mesh = SubResource("SphereMesh_v3wda")
 
 [node name="NoteFeedback" type="Label3D" parent="JudgementLine"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.637828, 0)
@@ -62,7 +59,7 @@ font_size = 50
 current = true
 script = ExtResource("2_e1u4u")
 
-[node name="XRCamera3D" type="XRCamera3D" parent="CharacterBody3D/XROrigin3D"]
+[node name="VrCamera" parent="CharacterBody3D/XROrigin3D" instance=ExtResource("5_v3wda")]
 
 [node name="LeftController" parent="CharacterBody3D/XROrigin3D" instance=ExtResource("2_8n60k")]
 tracker = &"left_hand"

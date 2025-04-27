@@ -1,12 +1,18 @@
 extends PanelContainer
 
 static var taiko_vr_play = preload("res://taiko_vr/taiko_xr_main.tscn")
+var Highscores = preload("res://taiko_vr/songs/highscores.gd")
+var SongScores = preload("res://taiko_vr/songs/score.gd")
 var SongData = preload("res://taiko_vr/songs/song_data.gd")
 var selected_song
+var preview_remaining_seconds: float = 0
 
 func _ready() -> void:
 	for song_data in SongData.SONG_LIST:
-		$SplitContainer/ItemList.add_item(song_data.song_name + " by " + song_data.artist)
+		var high_score = Highscores.get_highscore(song_data)
+		var rank = "[%s] " % SongScores.percent_to_rank(high_score.percent) if high_score else ""
+		var song_menu_title = "%s%s by %s" % [rank, song_data.song_name, song_data.artist]
+		$SplitContainer/ItemList.add_item(song_menu_title)
 	
 	# Select the first song by default
 	$SplitContainer/ItemList.select(0)
@@ -27,6 +33,29 @@ Source: %s" % [
 	1.0 / selected_song.beat_seconds,
 	selected_song.source,
 ]
+	var highscore = Highscores.get_highscore(selected_song)
+	var text
+	if highscore:
+		text = "Highscore: %s" % highscore.percent
+		if highscore.all_perfect:
+			text += " | All Perfect"
+		elif highscore.full_combo:
+			text += " | Full Combo"
+	else:
+		text = "Not played yet"
+	$SplitContainer/VBoxContainer/HighscoreLabel.text = text
+
+	$AudioStreamPlayer.stream = load(selected_song.audio_stream_path)
+	$AudioStreamPlayer.play(TaikoConst.SONG_PREVIEW_OFFSET)
+	preview_remaining_seconds = TaikoConst.SONG_PREVIEW_SECONDS
+
+func _process(delta: float) -> void:
+	if preview_remaining_seconds > 0:
+		preview_remaining_seconds -= delta
+		if preview_remaining_seconds <= 0:
+			$AudioStreamPlayer.stop()
+
+	# Play a preview of the song (lets say the beginning 5 seconds)
 
 func _on_button_play_pressed():
 	get_tree().change_scene_to_packed(taiko_vr_play)

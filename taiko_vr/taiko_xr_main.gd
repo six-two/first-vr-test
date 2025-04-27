@@ -1,6 +1,7 @@
 extends Node
 
 var SongData = preload("res://taiko_vr/songs/song_data.gd")
+var SongScore = preload("res://taiko_vr/songs/score.gd")
 var hide_note_feedback_in_seconds: float = 0
 
 func _ready():
@@ -11,7 +12,7 @@ func _ready():
 	
 	$AudioStreamPlayer.stream = load(SongData.current_song.audio_stream_path)
 	$AudioStreamPlayer.play()
-	SongData.current_score = SongData.SongScore.new()
+	SongData.current_score = SongScore.BasicScore.new()
 
 	$JudgementLine.init(drumb)
 

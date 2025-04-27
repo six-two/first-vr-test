@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://dljifdhuyb5ia"]
+[gd_scene load_steps=11 format=3 uid="uid://dljifdhuyb5ia"]
 
 [ext_resource type="Script" uid="uid://bqfoxo7ef5c31" path="res://taiko_vr/mapping/main.gd" id="1_p6ymd"]
 [ext_resource type="PackedScene" uid="uid://bo6t1gw5eket4" path="res://taiko_vr/drumb.tscn" id="2_qbd37"]
 [ext_resource type="Script" uid="uid://bm081j0oah58f" path="res://vr_controls/player_movement.gd" id="3_sfpvi"]
 [ext_resource type="PackedScene" uid="uid://cp67yib0jrtvg" path="res://vr_controls/ball_controller.tscn" id="4_2x8g7"]
 [ext_resource type="AudioStream" uid="uid://cpba4nhx7d4lv" path="res://music/edm-dance-club-music-259530.mp3" id="5_pe58t"]
+[ext_resource type="PackedScene" uid="uid://cpfv4fuufyy8c" path="res://vr_controls/vr_camera.tscn" id="5_tuv8c"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_608u1"]
 albedo_color = Color(0.052192, 0.052192, 0.0497937, 1)
@@ -41,13 +42,13 @@ environment = SubResource("Environment_k0sh0")
 current = true
 script = ExtResource("3_sfpvi")
 
-[node name="XRCamera3D" type="XRCamera3D" parent="CharacterBody3D/XROrigin3D"]
-
 [node name="LeftController" parent="CharacterBody3D/XROrigin3D" instance=ExtResource("4_2x8g7")]
 tracker = &"left_hand"
 
 [node name="RightController" parent="CharacterBody3D/XROrigin3D" instance=ExtResource("4_2x8g7")]
 tracker = &"right_hand"
+
+[node name="VrCamera" parent="CharacterBody3D/XROrigin3D" instance=ExtResource("5_tuv8c")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
 shape = SubResource("CylinderShape3D_e1u4u")
