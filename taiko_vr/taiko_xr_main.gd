@@ -2,6 +2,7 @@ extends Node
 
 var SongData = preload("res://taiko_vr/songs/song_data.gd")
 var SongScore = preload("res://taiko_vr/songs/score.gd")
+var TjaParser = preload("res://taiko_vr/songs/tja_parser/parser.gd")
 var hide_note_feedback_in_seconds: float = 0
 var started = false
 
@@ -11,10 +12,15 @@ func _ready():
 	script.init(drumb)
 	set_note_feedback("")
 	
-	$AudioStreamPlayer.stream = load(SongData.current_song.audio_stream_path)
+	$AudioStreamPlayer.stream = load(SongData.current_song.song_file)
 	SongData.current_score = SongScore.BasicScore.new()
 
-	
+	#var notes = TjaParser.parse_tja_notes("res://taiko_vr/songs/tja_parser/demo.tja")
+	#print("12345678")
+	#for segment in notes:
+		#print(segment)
+	#print("12345678")
+
 func set_note_feedback(text):
 	$JudgementLine/NoteFeedback.text = text
 	$JudgementLine/NoteFeedback.visible = true

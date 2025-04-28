@@ -6,11 +6,11 @@ class HighScore:
 	var all_perfect: bool
 	var full_combo: bool
 
-static var song_to_high_score = {}
+static var chart_to_high_score = {}
 
 static func get_highscore(song) -> HighScore:
-	return song_to_high_score.get(song.id)
-	
+	return chart_to_high_score.get(song.charts[0].id()) # @TODO: get only highest score?
+
 static func load() -> bool:
 	if FileAccess.file_exists(TaikoConst.HIGHSCORE_FILE):
 		var file = FileAccess.open(TaikoConst.HIGHSCORE_FILE, FileAccess.READ)
@@ -38,7 +38,7 @@ static func load() -> bool:
 			map[song_id] = high_score
 		
 		# If no errors during deserialisation, overwrite the existing data
-		song_to_high_score = map
+		chart_to_high_score = map
 		return true
 	else:
 		print("No saved highscores found")
@@ -46,8 +46,8 @@ static func load() -> bool:
 
 static func save() -> void:
 	var data_as_json = {}
-	for song_id in song_to_high_score.keys():
-		var high_score = song_to_high_score[song_id]
+	for song_id in chart_to_high_score.keys():
+		var high_score = chart_to_high_score[song_id]
 		data_as_json[song_id] = {
 			"percent": high_score.percent,
 			"all_perfect": high_score.all_perfect,
@@ -60,10 +60,11 @@ static func save() -> void:
 	var save_file = FileAccess.open(TaikoConst.HIGHSCORE_FILE, FileAccess.WRITE)
 	save_file.store_line(json_string)
 
-static func update(song, full_score):
+static func update(chart, full_score):
 	# Check if the new score is better than the highscore. If so then save the new scores
-	if song.id in song_to_high_score:
-		var high_score = song_to_high_score[song.id]
+	var id = chart.id()
+	if id in chart_to_high_score:
+		var high_score = chart_to_high_score[id]
 		var updated = false
 
 		# Update values if they are better than the last high score
@@ -87,6 +88,6 @@ static func update(song, full_score):
 		high_score.all_perfect = full_score.all_perfect
 		high_score.full_combo = full_score.full_combo
 		high_score.percent = full_score.percent
-		song_to_high_score[song.id] = high_score
+		chart_to_high_score[id] = high_score
 		print("Highscore: Got first score for song")
 		save()

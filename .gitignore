@@ -8,3 +8,7 @@ public/
 
 # macOS
 .DS_Store
+
+# test files
+demo.tja
+taiko_vr/songs/custom/

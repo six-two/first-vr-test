@@ -2,8 +2,18 @@
 extends Node
 
 var webxr_interface
-var Highscores = preload("res://taiko_vr/songs/highscores.gd")
+const Highscores = preload("res://taiko_vr/songs/highscores.gd")
+const SongData = preload("res://taiko_vr/songs/song_data.gd")
+const BuiltinSongs = preload("res://taiko_vr/songs/builtin_songs.gd")
+const CustomSongs = preload("res://taiko_vr/songs/custom_song_parser.gd")
 
+func taiko_init() -> void:
+	Highscores.load()
+	var builtin_songs = BuiltinSongs.get_builtin_songs()
+	var custom_songs = CustomSongs.parse_from_directory("res://taiko_vr/songs/custom/")
+	print("[*] Builtin songs: ", builtin_songs.size())
+	print("[*] Custom songs: ", custom_songs.size())
+	SongData.SONG_LIST += builtin_songs + custom_songs
 
 func _ready() -> void:
 	webxr_interface = XRServer.find_interface("WebXR")
@@ -27,7 +37,7 @@ func _webxr_session_supported(session_mode: String, supported: bool) -> void:
  
 
 func _on_button_flat_pressed() -> void:
-	Highscores.load()
+	taiko_init()
 	GlobalState.show_menu_room(get_tree(), "res://taiko_vr/menu/song_menu_2d.tscn")
 
 func _on_button_tutorial_pressed() -> void:
@@ -36,7 +46,7 @@ func _on_button_tutorial_pressed() -> void:
 
 
 func _on_button_vr_pressed() -> void:
-	Highscores.load()
+	taiko_init()
 	if webxr_interface:
 		# We want an immersive VR session, as opposed to AR ('immersive-ar') or a
 		# simple 3DoF viewer ('viewer').

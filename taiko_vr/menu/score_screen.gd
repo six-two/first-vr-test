@@ -7,7 +7,7 @@ var scene_replay_song = preload("res://taiko_vr/taiko_xr_main.tscn")
 
 func _ready():	
 	var score = Score.basic_to_full_score(SongData.current_score)
-	Highscores.update(SongData.current_song, score)
+	Highscores.update(SongData.current_chart, score)
 
 	$VBoxContainer/Rank.text = score.rank
 	$VBoxContainer/Combo.text = score.description

@@ -23,28 +23,21 @@ func _ready() -> void:
 		drumb.connect("drumb_center_hit", self._on_drumb_center_hit)
 		drumb.connect("drumb_edge_hit", self._on_drumb_edge_hit)
 		drumb.connect("drumb_exited", self._on_drumb_exited)
-		
-	
+
+	# preload the notes / parse the chart
+	SongData.current_chart.get_notes()
 
 func start():
-	var notes_str = SongData.current_song.notes_str
-	remaining_time = notes_str.length() * SongData.current_song.beat_seconds + TaikoConst.NOTE_MISS_SECONDS + 0.1
+	var note_data_list = SongData.current_chart.get_notes()
+	remaining_time = SongData.current_song.duration
 
 	notes = []
 	var beat_time = 0
-	for char in notes_str:
-		if char in ["c", "e", "C", "E"]:
-			var note = NoteScene.instantiate()
-			note.init(char, beat_time)
-			notes.append(note)
-			self.add_child(note)
-		elif char == " ":
-			# do nothing for space
-			pass
-		else:
-			print("Unexpected note: ", char)
-
-		beat_time += SongData.current_song.beat_seconds
+	for note_data in note_data_list:
+		var note = NoteScene.instantiate()
+		note.init(note_data.type, note_data.time)
+		notes.append(note)
+		self.add_child(note)
 
 	paused = false
 

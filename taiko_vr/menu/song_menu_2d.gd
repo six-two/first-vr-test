@@ -11,7 +11,7 @@ func _ready() -> void:
 	for song_data in SongData.SONG_LIST:
 		var high_score = Highscores.get_highscore(song_data)
 		var rank = "[%s] " % SongScores.percent_to_rank(high_score.percent) if high_score else ""
-		var song_menu_title = "%s%s by %s" % [rank, song_data.song_name, song_data.artist]
+		var song_menu_title = "%s%s by %s" % [rank, song_data.title, song_data.artist]
 		$SplitContainer/ItemList.add_item(song_menu_title)
 	
 	# Select the first song by default
@@ -21,16 +21,17 @@ func _ready() -> void:
 func _on_item_list_item_selected(index: int) -> void:
 	var selected_song = SongData.SONG_LIST[index]
 	SongData.current_song = selected_song
-	print("Selected item:", selected_song.song_name)
+	SongData.current_chart = selected_song.charts[0]
+	print("Selected item:", selected_song.title)
 	$SplitContainer/VBoxContainer/RichTextLabel.text = "Title: %s
 Artist: %s
 Length: %d seconds
-Speed: up to %.1f notes per second
+BPM: %.1f
 Source: %s" % [
-	selected_song.song_name,
+	selected_song.title,
 	selected_song.artist,
-	selected_song.notes_str.length() * selected_song.beat_seconds,
-	1.0 / selected_song.beat_seconds,
+	selected_song.duration,
+	selected_song.bpm,
 	selected_song.source,
 ]
 	var highscore = Highscores.get_highscore(selected_song)
@@ -45,7 +46,7 @@ Source: %s" % [
 		text = "Not played yet"
 	$SplitContainer/VBoxContainer/HighscoreLabel.text = text
 
-	$AudioStreamPlayer.stream = load(selected_song.audio_stream_path)
+	$AudioStreamPlayer.stream = load(selected_song.song_file)
 	$AudioStreamPlayer.play(TaikoConst.SONG_PREVIEW_OFFSET)
 	preview_remaining_seconds = TaikoConst.SONG_PREVIEW_SECONDS
 
