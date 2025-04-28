@@ -6,9 +6,9 @@ const Note = Song.Note
 class TjaChart extends Song.Chart:
 	var tja_file: String
 
-	func _init(course: int, level: int, tja_file: String) -> void:
-		super(course, level)
-		self.tja_file = tja_file
+	func _init(_course: int, _level: int, _tja_file: String) -> void:
+		super(_course, _level)
+		self.tja_file = _tja_file
 
 	func __load_notes() -> Array[Note]:
 		const TjaParser = preload("res://taiko_vr/songs/tja_parser/parser.gd")
@@ -28,23 +28,23 @@ class SimpleChart extends Song.Chart:
 	var notes_str: String
 	var beat_seconds: float
 
-	func _init(course: int, level: int, notes_str: String, beat_seconds: float) -> void:
-		super(course, level)
-		self.notes_str = notes_str
-		self.beat_seconds = beat_seconds
+	func _init(_course: int, _level: int, _notes_str: String, _beat_seconds: float) -> void:
+		super(_course, _level)
+		self.notes_str = _notes_str
+		self.beat_seconds = _beat_seconds
 
 	func __load_notes() -> Array[Note]:
 		var notes: Array[Note] = []
 		var time = 0
-		for char in notes_str:
-			if char in ["c", "e", "C", "E"]:
-				var note = Note.new(char, time)
+		for type_char in notes_str:
+			if type_char in ["c", "e", "C", "E"]:
+				var note = Note.new(type_char, time)
 				notes.append(note)
-			elif char == " ":
+			elif type_char == " ":
 				# do nothing for space
 				pass
 			else:
-				print("Unexpected note: ", char)
+				print("Unexpected note: ", type_char)
 
 			time += beat_seconds
 		return notes

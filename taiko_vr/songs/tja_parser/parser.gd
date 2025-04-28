@@ -1,7 +1,7 @@
 extends Node
 
 # SEE https://gist.github.com/KatieFrogs/e000f406bbc70a12f3c34a07303eec8b#song-notation
-# USE https://whmhammer.github.io/tja-tools/ (and select dificulty easy) to view how the demo file should look like
+# USE https://whmhammer.github.io/tja-tools/ (and select difficulty easy) to view how the demo file should look like
 
 const Song = preload("res://taiko_vr/songs/song.gd")
 
@@ -18,9 +18,10 @@ static func parse_tja_song(file_path: String) -> Song.Song:
 	var song = Song.Song.new("Unknown Title", "Unknown Artist", "", 999, file_path, 999, [])
 	var chart = Song.LoadedChart.new(0, 0, [])
 	var in_song_notation = false
-	var base_bpm = 0
-	var segment_seconds = 0
-	var time = 0
+	var base_bpm: float = 120 # "If omitted, BPM defaults to 120." --https://gist.github.com/KatieFrogs/e000f406bbc70a12f3c34a07303eec8b#bpm
+	var measure_seconds: float = 0
+	var time: float = 0
+	var measure: float = 4.0 / 4.0 # The measure is usually 4/4
 
 	var file = FileAccess.open(file_path, FileAccess.READ)
 
@@ -29,7 +30,8 @@ static func parse_tja_song(file_path: String) -> Song.Song:
 
 		if line.begins_with("#START"):
 			in_song_notation = true
-			segment_seconds = 60 * 8 / base_bpm
+			# "Formula to get the amount of milliseconds per measure: 60000 * MEASURE * 4 / BPM." --https://gist.github.com/KatieFrogs/e000f406bbc70a12f3c34a07303eec8b#measure
+			measure_seconds = 60 * measure * 4 / base_bpm
 			time = 0
 		elif line.begins_with("#END"):
 			in_song_notation = false
@@ -39,10 +41,13 @@ static func parse_tja_song(file_path: String) -> Song.Song:
 		elif in_song_notation:
 			if line.ends_with(","):
 				var note_types = parse_segment(line)
+				var note_time = measure_seconds / note_types.length()
 				for type in note_types:
-					time += segment_seconds / note_types.length()
-					var note = Song.Note.new(type, time)
-					chart.notes.append(note)
+					if type != " ":
+						var note = Song.Note.new(type, time)
+						chart.notes.append(note)
+
+					time += note_time
 			elif line in ["#GOGOSTART", "#GOGOEND"]:
 				# Ignore some instructions we do not care about
 				pass

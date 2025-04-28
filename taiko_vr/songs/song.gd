@@ -5,9 +5,9 @@ class Note:
 	var type: String
 	var time: float
 
-	func _init(type: String, time: float) -> void:
-		self.type = type
-		self.time = time
+	func _init(_type: String, _time: float) -> void:
+		self.type = _type
+		self.time = _time
 
 class Chart:
 	var course: int
@@ -15,9 +15,9 @@ class Chart:
 	var __notes: Array[Note]
 	var __id: String
 
-	func _init(course: int, level: int) -> void:
-		self.course = course
-		self.level = level
+	func _init(_course: int, _level: int) -> void:
+		self.course = _course
+		self.level = _level
 
 	func get_notes() -> Array[Note]:
 		if not __notes:
@@ -36,14 +36,20 @@ class Chart:
 	func __generate_id() -> String:
 		print("__generate_id is not overwritten")
 		return "default_id"
+	
+	func compare(other: Chart) -> int:
+		var diff = other.course - self.course
+		if diff == 0:
+			diff = other.level - self.level
+		return diff
 
 class LoadedChart extends Chart:
 	var notes: Array[Note]
 	
-	func _init(course: int, level: int, notes: Array[Note]) -> void:
-		self.course = course
-		self.level = level
-		self.notes = notes
+	func _init(_course: int, _level: int, _notes: Array[Note]) -> void:
+		self.course = _course
+		self.level = _level
+		self.notes = _notes
 
 	func __load_notes() -> Array[Note]:
 		return self.notes
@@ -63,11 +69,11 @@ class Song:
 	var bpm: float
 	var charts: Array[Chart]
 
-	func _init(title: String, artist: String, song_file: String, duration: float, source: String, bpm: float, charts: Array[Chart]) -> void:
-		self.title = title
-		self.artist = artist
-		self.song_file = song_file
-		self.duration = duration
-		self.source = source
-		self.bpm = bpm
-		self.charts = charts
+	func _init(_title: String, _artist: String, _song_file: String, _duration: float, _source: String, _bpm: float, _charts: Array[Chart]) -> void:
+		self.title = _title
+		self.artist = _artist
+		self.song_file = _song_file
+		self.duration = _duration
+		self.source = _source
+		self.bpm = _bpm
+		self.charts = _charts

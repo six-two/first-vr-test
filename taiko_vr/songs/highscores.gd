@@ -8,8 +8,19 @@ class HighScore:
 
 static var chart_to_high_score = {}
 
-static func get_highscore(song) -> HighScore:
-	return chart_to_high_score.get(song.charts[0].id()) # @TODO: get only highest score?
+static func get_chart_highscore(chart) -> HighScore:
+	return chart_to_high_score.get(chart.id())
+
+static func get_song_highscore(song) -> HighScore:
+	# Check the highest levels first
+	song.charts.sort()
+	song.charts.reverse()
+	for chart in song.charts:
+		var score = get_chart_highscore(chart)
+		if score:
+			return score
+	return null
+
 
 static func load() -> bool:
 	if FileAccess.file_exists(TaikoConst.HIGHSCORE_FILE):

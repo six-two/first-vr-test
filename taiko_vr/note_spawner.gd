@@ -2,7 +2,6 @@ extends Node3D
 
 var remaining_time
 var notes
-var type
 
 signal song_started
 signal song_finished
@@ -32,7 +31,6 @@ func start():
 	remaining_time = SongData.current_song.duration
 
 	notes = []
-	var beat_time = 0
 	for note_data in note_data_list:
 		var note = NoteScene.instantiate()
 		note.init(note_data.type, note_data.time)

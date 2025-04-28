@@ -44,16 +44,54 @@ layout_mode = 2
 theme = ExtResource("1_qvm2e")
 text = "Highscore: Placeholder"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SplitContainer/VBoxContainer"]
+[node name="CourseSelector" type="HBoxContainer" parent="SplitContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="EditButton" type="Button" parent="SplitContainer/VBoxContainer/HBoxContainer"]
+[node name="EasyButton" type="Button" parent="SplitContainer/VBoxContainer/CourseSelector"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+text = "Easy"
+
+[node name="NormalButton" type="Button" parent="SplitContainer/VBoxContainer/CourseSelector"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_font_sizes/font_size = 50
+text = "Normal"
+
+[node name="HardButton" type="Button" parent="SplitContainer/VBoxContainer/CourseSelector"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_font_sizes/font_size = 50
+text = "Normal"
+
+[node name="ExpertButton" type="Button" parent="SplitContainer/VBoxContainer/CourseSelector"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_font_sizes/font_size = 50
+text = "Normal"
+
+[node name="MasterButton" type="Button" parent="SplitContainer/VBoxContainer/CourseSelector"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_font_sizes/font_size = 50
+text = "Normal"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="SplitContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="EditButton" type="Button" parent="SplitContainer/VBoxContainer/HBoxContainer2"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 50
 text = "Edit"
 
-[node name="PlayButton" type="Button" parent="SplitContainer/VBoxContainer/HBoxContainer"]
+[node name="PlayButton" type="Button" parent="SplitContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
@@ -63,5 +101,10 @@ text = "Play"
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [connection signal="item_selected" from="SplitContainer/ItemList" to="." method="_on_item_list_item_selected"]
-[connection signal="pressed" from="SplitContainer/VBoxContainer/HBoxContainer/EditButton" to="." method="_on_button_play_pressed"]
-[connection signal="pressed" from="SplitContainer/VBoxContainer/HBoxContainer/PlayButton" to="." method="_on_button_play_pressed"]
+[connection signal="pressed" from="SplitContainer/VBoxContainer/CourseSelector/EasyButton" to="." method="_on_button_easy_pressed"]
+[connection signal="pressed" from="SplitContainer/VBoxContainer/CourseSelector/NormalButton" to="." method="_on_button_normal_pressed"]
+[connection signal="pressed" from="SplitContainer/VBoxContainer/CourseSelector/HardButton" to="." method="_on_button_hard_pressed"]
+[connection signal="pressed" from="SplitContainer/VBoxContainer/CourseSelector/ExpertButton" to="." method="_on_button_expert_pressed"]
+[connection signal="pressed" from="SplitContainer/VBoxContainer/CourseSelector/MasterButton" to="." method="_on_button_master_pressed"]
+[connection signal="pressed" from="SplitContainer/VBoxContainer/HBoxContainer2/EditButton" to="." method="_on_button_play_pressed"]
+[connection signal="pressed" from="SplitContainer/VBoxContainer/HBoxContainer2/PlayButton" to="." method="_on_button_play_pressed"]
