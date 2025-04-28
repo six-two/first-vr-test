@@ -27,4 +27,12 @@ static func handle_tja_song(base_dir: String, filename: String):
 	# convert relative path to full path
 	if song.song_file and not song.song_file.begins_with("/"):
 		song.song_file = base_dir.path_join(song.song_file)
+	
+	# Check the length of the audio file @TODO cache this value for performance reasons
+	# SEE https://docs.godotengine.org/en/stable/classes/class_audiostream.html#class-audiostream-method-get-length
+	var audio_stream = load(song.song_file)
+	if audio_stream:
+		song.duration = audio_stream.get_length()
+	else:
+		print("[-] Failed to load song_file ", song.song_file, ", so the duration will be broken")
 	return song

@@ -65,21 +65,21 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 theme_override_font_sizes/font_size = 50
-text = "Normal"
+text = "Hard"
 
 [node name="ExpertButton" type="Button" parent="SplitContainer/VBoxContainer/CourseSelector"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 theme_override_font_sizes/font_size = 50
-text = "Normal"
+text = "Expert"
 
 [node name="MasterButton" type="Button" parent="SplitContainer/VBoxContainer/CourseSelector"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 theme_override_font_sizes/font_size = 50
-text = "Normal"
+text = "Master"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="SplitContainer/VBoxContainer"]
 layout_mode = 2
