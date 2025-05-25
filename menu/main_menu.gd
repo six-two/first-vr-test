@@ -6,13 +6,16 @@ const Highscores = preload("res://taiko_vr/songs/highscores.gd")
 const SongData = preload("res://taiko_vr/songs/song_data.gd")
 const BuiltinSongs = preload("res://taiko_vr/songs/builtin_songs.gd")
 const CustomSongs = preload("res://taiko_vr/songs/custom_song_parser.gd")
+const SongIndex = preload("res://game/song_manager/song_index.gd")
 
 func taiko_init() -> void:
 	Highscores.load()
 	var builtin_songs = BuiltinSongs.get_builtin_songs()
 	var custom_songs = CustomSongs.parse_from_directory("res://taiko_vr/songs/custom/")
+	var song_indices = SongIndex.parse_from_directory(TaikoConst.SONG_INDEX_FOLDER) + SongIndex.parse_from_directory("res://taiko_vr/songs/")
 	print("[*] Builtin songs: ", builtin_songs.size())
 	print("[*] Custom songs: ", custom_songs.size())
+	print("[*] Song indices: ", song_indices.size())
 	SongData.SONG_LIST += builtin_songs + custom_songs
 
 func _ready() -> void:

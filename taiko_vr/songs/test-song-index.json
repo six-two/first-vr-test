@@ -1,0 +1,24 @@
+{
+	"game": "taiko",
+	"directory_name": "builtin-song-index",
+	"songs": [
+		{
+			"title": "EDM Dance Club Music",
+			"artist": "LudoSoundX",
+			"music": {
+				"url": "https://github.com/six-two/first-vr-test/raw/refs/heads/main/music/edm-dance-club-music-259530.mp3",
+				"path": "edm-dance-club-music-259530.mp3"
+			},
+			"charts": {
+				"url": "TODO",
+				"path": "../../../../../../../../../../tmp/TODO-prevent-path-traversal.txt"
+			},
+			"difficulties": [
+				{
+					"course": 1,
+					"level": 2
+				}
+			]
+		}
+	]
+}

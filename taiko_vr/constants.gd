@@ -1,5 +1,7 @@
 extends Node
 
+const SONG_INDEX_FOLDER = "user://song-index/"
+
 const NOTE_MISS_SECONDS = 0.4
 const NOTE_OK_SECONDS = 0.15
 const NOTE_PERFECT_SECONDS = 0.06
