@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://cl342jwg3v5cp"]
+
+[ext_resource type="Script" uid="uid://bxl45jyvv0g3n" path="res://game/song_manager/song_index_downloader_2d.gd" id="1_cen8m"]
+[ext_resource type="Theme" uid="uid://bpaigbsplgsv8" path="res://taiko_vr/menu/menu_theme.tres" id="2_gde1d"]
+
+[node name="PanelContainer" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cen8m")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 2
+color = Color(0.619489, 0.619489, 0.619489, 1)
+
+[node name="SplitContainer" type="SplitContainer" parent="."]
+layout_mode = 2
+
+[node name="ItemList" type="ItemList" parent="SplitContainer"]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_gde1d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SplitContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("2_gde1d")
+text = "Title: Placeholder
+Artist: Placeholder
+Length: Placeholder
+Speed: Placeholder
+Source: Placeholder"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SplitContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="SplitContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_font_sizes/font_size = 50
+text = "Back"
+
+[node name="DownloadButton" type="Button" parent="SplitContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_font_sizes/font_size = 50
+text = "Download"
+
+[connection signal="item_selected" from="SplitContainer/ItemList" to="." method="_on_item_list_item_selected"]
+[connection signal="pressed" from="SplitContainer/VBoxContainer/HBoxContainer/BackButton" to="." method="_on_button_back_pressed"]
+[connection signal="pressed" from="SplitContainer/VBoxContainer/HBoxContainer/DownloadButton" to="." method="_on_button_play_pressed"]

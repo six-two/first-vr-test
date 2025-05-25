@@ -8,15 +8,27 @@ var preview_remaining_seconds: float = 0
 static var last_course = 0 # remember last difficulty
 
 func _ready() -> void:
+	var song_item_list = $SplitContainer/VBoxSongs/ItemList
+	
 	for song_data in SongData.SONG_LIST:
 		var high_score = Highscores.get_song_highscore(song_data)
 		var rank = "[%s] " % SongScores.percent_to_rank(high_score.percent) if high_score else ""
 		var song_menu_title = "%s%s by %s" % [rank, song_data.title, song_data.artist]
-		$SplitContainer/ItemList.add_item(song_menu_title)
+		song_item_list.add_item(song_menu_title)
 	
-	# Select the first song by default
-	$SplitContainer/ItemList.select(0)
-	_on_item_list_item_selected(0)
+	if SongData.SONG_LIST.size() > 0:
+		# Select the first song by default
+		song_item_list.select(0)
+		_on_item_list_item_selected(0)
+	
+	var has_downloadable_songs = false
+	for song_index in SongData.SONG_INDICES:
+		if song_index.songs.size() > 0:
+			has_downloadable_songs = true
+	
+	if not has_downloadable_songs:
+		$SplitContainer/VBoxSongs/DownloadButton.visible = false
+
 
 func _on_item_list_item_selected(index: int) -> void:
 	var selected_song = SongData.SONG_LIST[index]
@@ -86,6 +98,8 @@ func select_course(course) -> bool:
 			return true
 	return false
 
+func _on_button_download_pressed():
+	GlobalState.show_menu_room(get_tree(), "res://game/song_manager/song_index_downloader_2d.tscn")
 
 func _on_button_play_pressed():
 	get_tree().change_scene_to_packed(taiko_vr_play)

@@ -18,11 +18,22 @@ color = Color(0.619489, 0.619489, 0.619489, 1)
 [node name="SplitContainer" type="SplitContainer" parent="."]
 layout_mode = 2
 
-[node name="ItemList" type="ItemList" parent="SplitContainer"]
+[node name="VBoxSongs" type="VBoxContainer" parent="SplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ItemList" type="ItemList" parent="SplitContainer/VBoxSongs"]
 layout_direction = 2
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 theme = ExtResource("1_qvm2e")
+
+[node name="DownloadButton" type="Button" parent="SplitContainer/VBoxSongs"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+text = "Download"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SplitContainer"]
 layout_mode = 2
@@ -100,7 +111,8 @@ text = "Play"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
-[connection signal="item_selected" from="SplitContainer/ItemList" to="." method="_on_item_list_item_selected"]
+[connection signal="item_selected" from="SplitContainer/VBoxSongs/ItemList" to="." method="_on_item_list_item_selected"]
+[connection signal="pressed" from="SplitContainer/VBoxSongs/DownloadButton" to="." method="_on_button_download_pressed"]
 [connection signal="pressed" from="SplitContainer/VBoxContainer/CourseSelector/EasyButton" to="." method="_on_button_easy_pressed"]
 [connection signal="pressed" from="SplitContainer/VBoxContainer/CourseSelector/NormalButton" to="." method="_on_button_normal_pressed"]
 [connection signal="pressed" from="SplitContainer/VBoxContainer/CourseSelector/HardButton" to="." method="_on_button_hard_pressed"]

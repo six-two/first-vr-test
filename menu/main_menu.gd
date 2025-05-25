@@ -1,25 +1,37 @@
 # Based on this great tutorial: https://www.snopekgames.com/tutorial/2023/how-make-vr-game-webxr-godot-4
 extends Node
 
-var webxr_interface
 const Highscores = preload("res://taiko_vr/songs/highscores.gd")
 const SongData = preload("res://taiko_vr/songs/song_data.gd")
 const BuiltinSongs = preload("res://taiko_vr/songs/builtin_songs.gd")
 const CustomSongs = preload("res://taiko_vr/songs/custom_song_parser.gd")
 const SongIndex = preload("res://game/song_manager/song_index.gd")
 
+var webxr_interface
+var error_label
+
 func taiko_init() -> void:
 	Highscores.load()
 	var builtin_songs = BuiltinSongs.get_builtin_songs()
 	var custom_songs = CustomSongs.parse_from_directory("res://taiko_vr/songs/custom/")
+	var downloaded_songs = CustomSongs.parse_from_directory(TaikoConst.SONG_INDEX_FOLDER)
 	var song_indices = SongIndex.parse_from_directory(TaikoConst.SONG_INDEX_FOLDER) + SongIndex.parse_from_directory("res://taiko_vr/songs/")
 	print("[*] Builtin songs: ", builtin_songs.size())
 	print("[*] Custom songs: ", custom_songs.size())
+	print("[*] Downloaded songs: ", downloaded_songs.size())
 	print("[*] Song indices: ", song_indices.size())
-	SongData.SONG_LIST += builtin_songs + custom_songs
+	print()
+	SongData.SONG_LIST += builtin_songs + custom_songs + downloaded_songs
+	SongData.SONG_INDICES = song_indices
+	
+	if not DirAccess.dir_exists_absolute(TaikoConst.SONG_INDEX_FOLDER):
+		print("[*] Directory %s doesn't exist. Creating it..." % TaikoConst.SONG_INDEX_FOLDER.replace("user://", OS.get_user_data_dir()))
+		DirAccess.make_dir_absolute(TaikoConst.SONG_INDEX_FOLDER)
+
 
 func _ready() -> void:
 	webxr_interface = XRServer.find_interface("WebXR")
+	error_label = $MarginContainer/VBoxContainer/ErrorText
 	if webxr_interface:
 		# WebXR uses a lot of asynchronous callbacks, so we connect to various
 		# signals in order to receive them.
@@ -36,7 +48,7 @@ func _ready() -> void:
 func _webxr_session_supported(session_mode: String, supported: bool) -> void:
 	if session_mode == 'immersive-vr':
 		if not supported:
-			$ErrorText.text = "Your browser doesn't support VR"
+			error_label.text = "Your browser doesn't support VR"
  
 
 func _on_button_flat_pressed() -> void:
@@ -71,9 +83,9 @@ func _on_button_vr_pressed() -> void:
 		# only know if it's really succeeded or failed when our
 		# _webxr_session_started() or _webxr_session_failed() methods are called.
 		if not webxr_interface.initialize():
-			$ErrorText.text = "Failed to initialize WebXR"
+			error_label.text = "Failed to initialize WebXR"
 	else:
-		$ErrorText.text = "Failed to get WebXR context"
+		error_label.text = "Failed to get WebXR context"
  
 func _webxr_session_started() -> void:
 	# This tells Godot to start rendering to the headset.

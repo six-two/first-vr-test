@@ -12,3 +12,4 @@ public/
 # test files
 demo.tja
 taiko_vr/songs/custom/
+*.local

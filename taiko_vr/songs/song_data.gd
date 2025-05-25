@@ -4,4 +4,5 @@ static var current_song
 static var current_chart
 static var current_score
 
-static var SONG_LIST = []
+static var SONG_LIST: Array = []
+static var SONG_INDICES: Array = []
