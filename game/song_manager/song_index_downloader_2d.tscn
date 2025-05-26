@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bxl45jyvv0g3n" path="res://game/song_manager/song_index_downloader_2d.gd" id="1_cen8m"]
 [ext_resource type="Theme" uid="uid://bpaigbsplgsv8" path="res://taiko_vr/menu/menu_theme.tres" id="2_gde1d"]
-[ext_resource type="Script" uid="uid://cn1ceyjucpvle" path="res://game/song_manager/file_downloader.gd" id="3_gde1d"]
+[ext_resource type="Script" uid="uid://cn1ceyjucpvle" path="res://game/song_manager/add_song_index.gd" id="3_gde1d"]
 
 [node name="PanelContainer" type="PanelContainer"]
 anchors_preset = 15

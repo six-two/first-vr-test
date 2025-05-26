@@ -32,7 +32,7 @@ func _on_drumb_edge_hit(body):
 	elif type == "e":
 		type = "E"
 	else:
-		print("Cannot add input 'e' to existing type '", type, "'")
+		print("[-] Cannot add input 'e' to existing type '", type, "'")
 
 func _on_drumb_exited(body):
 	pass # Nothing to do here
@@ -40,16 +40,15 @@ func _on_drumb_exited(body):
 
 func _process(delta: float) -> void:
 	if time > song_time:
-		print("Song Mapping done:")
-		print(note_string)
+		print("[*] Song Mapping done:", note_string)
 		
 	if int((time + delta) / beat_seconds) > int(time / beat_seconds):
 		# we are in a new beat. First store the old one
-		print("Debug mapping: ", type)
+		print("[*] Debug mapping: ", type)
 		note_string += type
 		type = " "
 		
 		if int((time + delta) / beat_seconds) % 10 == 0:
-			print("Debug current map: ", note_string)
+			print("[*] Debug current map: ", note_string)
 	
 	time += delta

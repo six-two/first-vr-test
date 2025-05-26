@@ -119,3 +119,6 @@ func _on_button_expert_pressed():
 
 func _on_button_master_pressed():
 	select_course(4)
+
+func _on_button_add_index_pressed() -> void:
+	GlobalState.show_menu_room(get_tree(), "res://game/song_manager/add_song_index.tscn")

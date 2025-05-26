@@ -29,6 +29,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_qvm2e")
 
+[node name="AddIndexButton" type="Button" parent="SplitContainer/VBoxSongs"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+text = "Add Index"
+
 [node name="DownloadButton" type="Button" parent="SplitContainer/VBoxSongs"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -112,6 +118,7 @@ text = "Play"
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [connection signal="item_selected" from="SplitContainer/VBoxSongs/ItemList" to="." method="_on_item_list_item_selected"]
+[connection signal="pressed" from="SplitContainer/VBoxSongs/AddIndexButton" to="." method="_on_button_add_index_pressed"]
 [connection signal="pressed" from="SplitContainer/VBoxSongs/DownloadButton" to="." method="_on_button_download_pressed"]
 [connection signal="pressed" from="SplitContainer/VBoxContainer/CourseSelector/EasyButton" to="." method="_on_button_easy_pressed"]
 [connection signal="pressed" from="SplitContainer/VBoxContainer/CourseSelector/NormalButton" to="." method="_on_button_normal_pressed"]

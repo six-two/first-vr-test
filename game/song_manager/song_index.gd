@@ -20,16 +20,16 @@ class SongIndex:
 	
 	## Deserialize from JSON
 	static func from_json_dict(json_dict) -> SongIndex:
-		var game = json_dict["game"]
-		var directory_name = json_dict["directory_name"]
-		var songs: Array[SongIndexEntry] = []
-		var index_directory = TaikoConst.SONG_INDEX_FOLDER.path_join(directory_name)
+		var _game = json_dict["game"]
+		var _directory_name = json_dict["directory_name"]
+		var _songs: Array[SongIndexEntry] = []
+		var index_directory = TaikoConst.SONG_INDEX_FOLDER.path_join(_directory_name)
 		for song_json in json_dict["songs"]:
 			var song = SongIndexEntry.from_json_dict(song_json, index_directory)
 			if song:
-				songs.append(song)
+				_songs.append(song)
 
-		return SongIndex.new(game, directory_name, songs)
+		return SongIndex.new(_game, _directory_name, _songs)
 
 
 ## This represents a single song, that is part of a song index
@@ -61,21 +61,21 @@ class SongIndexEntry:
 	## Deserialize from JSON
 	static func from_json_dict(json_dict, song_index_directory: String) -> SongIndexEntry:
 		# Serialized values
-		var title = json_dict["title"]
-		var artist = json_dict["artist"]
-		var directory = ("%s - %s" % [artist, title]).replace("/", "").replace("\\", "") # TODO sanitize
-		while directory.contains(".."): # Recursively remove double dots to prevent any path traversal attempts
-			directory = directory.replace("..", "")
-		directory = song_index_directory.path_join(directory)
+		var _title = json_dict["title"]
+		var _artist = json_dict["artist"]
+		var _directory = ("%s - %s" % [_artist, _title]).replace("/", "").replace("\\", "") # TODO sanitize
+		while _directory.contains(".."): # Recursively remove double dots to prevent any path traversal attempts
+			_directory = _directory.replace("..", "")
+		_directory = song_index_directory.path_join(_directory)
 		
-		var difficulties: Array[ChartDifficulty] = []
+		var _difficulties: Array[ChartDifficulty] = []
 		for json_value in json_dict["difficulties"]:
-			difficulties.append(ChartDifficulty.from_json_dict(json_value))
+			_difficulties.append(ChartDifficulty.from_json_dict(json_value))
 		
-		var music_link = DownloadableFile.from_json_dict(json_dict["music"], directory)
-		var charts_link = DownloadableFile.from_json_dict(json_dict["charts"], directory)
-		var is_downloaded = music_link.is_downloaded() and charts_link.is_downloaded()
-		return SongIndexEntry.new(title, artist, directory, difficulties, is_downloaded, music_link, charts_link)
+		var _music_link = DownloadableFile.from_json_dict(json_dict["music"], _directory)
+		var _charts_link = DownloadableFile.from_json_dict(json_dict["charts"], _directory)
+		var _is_downloaded = _music_link.is_downloaded() and _charts_link.is_downloaded()
+		return SongIndexEntry.new(_title, _artist, _directory, _difficulties, _is_downloaded, _music_link, _charts_link)
 
 
 ## Represents a downloadable file used in a SongIndex to reference to music and chart data.
@@ -97,13 +97,13 @@ class DownloadableFile:
 
 	## Deserialize from JSON
 	static func from_json_dict(json_dict, base_directory: String) -> DownloadableFile:
-		var url = json_dict["url"]
+		var _url = json_dict["url"]
 		# In the serialized form, this only contains the relative path from the song directory
-		var path = json_dict["path"]
+		var _path = json_dict["path"]
 		# Remove leading dashes that may be interpreted as absolute paths
-		path = path.lstrip("/")
-		path = base_directory.path_join(path)
-		return DownloadableFile.new(url, path)
+		_path = _path.lstrip("/")
+		_path = base_directory.path_join(_path)
+		return DownloadableFile.new(_url, _path)
 
 	## Serialize to JSON
 	func to_json_dict(base_directory: String) -> Dictionary:
@@ -125,9 +125,9 @@ class ChartDifficulty:
 
 	## Deserialize from JSON
 	static func from_json_dict(json_dict) -> ChartDifficulty:
-		var course = json_dict["course"]
-		var level = json_dict["level"]
-		return ChartDifficulty.new(course, level)
+		var _course = json_dict["course"]
+		var _level = json_dict["level"]
+		return ChartDifficulty.new(_course, _level)
 
 	## Serialize to JSON
 	func to_json_dict() -> Dictionary:
@@ -158,7 +158,6 @@ static func parse_from_directory(path: String) -> Array[SongIndex]:
 static func parse_song_index_file(path: String) -> SongIndex:
 	var file = FileAccess.open(path, FileAccess.READ)
 	var json_string = file.get_as_text()
-	print("Loading index: ", json_string)
 	
 	var json = JSON.new()
 	# Check if there is any error while parsing the JSON string, skip in case of failure.

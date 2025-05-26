@@ -15,10 +15,10 @@ func taiko_init() -> void:
 	var builtin_songs = BuiltinSongs.get_builtin_songs()
 	var custom_songs = CustomSongs.parse_from_directory("res://taiko_vr/songs/custom/")
 	var downloaded_songs = CustomSongs.parse_from_directory(TaikoConst.SONG_INDEX_FOLDER)
-	var song_indices = SongIndex.parse_from_directory(TaikoConst.SONG_INDEX_FOLDER) + SongIndex.parse_from_directory("res://taiko_vr/songs/")
+	var song_indices = SongIndex.parse_from_directory(TaikoConst.SONG_INDEX_FOLDER)
 	print("[*] Builtin songs: ", builtin_songs.size())
-	print("[*] Custom songs: ", custom_songs.size())
-	print("[*] Downloaded songs: ", downloaded_songs.size())
+	print("[*] Custom builtin songs: ", custom_songs.size())
+	print("[*] Downloaded songs from indices: ", downloaded_songs.size())
 	print("[*] Song indices: ", song_indices.size())
 	print()
 	SongData.SONG_LIST += builtin_songs + custom_songs + downloaded_songs
