@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cl342jwg3v5cp"]
+[gd_scene load_steps=4 format=3 uid="uid://cl342jwg3v5cp"]
 
 [ext_resource type="Script" uid="uid://bxl45jyvv0g3n" path="res://game/song_manager/song_index_downloader_2d.gd" id="1_cen8m"]
 [ext_resource type="Theme" uid="uid://bpaigbsplgsv8" path="res://taiko_vr/menu/menu_theme.tres" id="2_gde1d"]
+[ext_resource type="Script" uid="uid://cn1ceyjucpvle" path="res://game/song_manager/file_downloader.gd" id="3_gde1d"]
 
 [node name="PanelContainer" type="PanelContainer"]
 anchors_preset = 15
@@ -56,6 +57,9 @@ size_flags_stretch_ratio = 2.0
 theme_override_font_sizes/font_size = 50
 text = "Download"
 
+[node name="DownloadParent" type="Node" parent="."]
+script = ExtResource("3_gde1d")
+
 [connection signal="item_selected" from="SplitContainer/ItemList" to="." method="_on_item_list_item_selected"]
 [connection signal="pressed" from="SplitContainer/VBoxContainer/HBoxContainer/BackButton" to="." method="_on_button_back_pressed"]
-[connection signal="pressed" from="SplitContainer/VBoxContainer/HBoxContainer/DownloadButton" to="." method="_on_button_play_pressed"]
+[connection signal="pressed" from="SplitContainer/VBoxContainer/HBoxContainer/DownloadButton" to="." method="_on_button_download_pressed"]

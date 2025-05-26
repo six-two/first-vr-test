@@ -21,16 +21,21 @@ def generate_json_for_folder(path: str, base_url: str) -> list[dict]:
             files.append(item)
     
     tja_files = [x for x in files if x.lower().endswith(".tja")]
-    if len(tja_files) == 1:
+    if len(tja_files) >= 1:
         music_files = [x for x in files if x.lower().endswith(".mp3") or x.lower().endswith(".ogg")]
-        if len(music_files) == 1:
-            tja_file = tja_files[0]
-            music_file = music_files[0]
+        if len(music_files) >= 1:
+            tja_file = sorted(tja_files)[0]
+            music_file = sorted(music_files)[0]
             results.append(generate_json_for_file(path, base_url, tja_file, music_file))
         else:
-            print(f"[!] {len(music_files)} music files in {path}, but only one expected", file=sys.stderr)
-    elif len(tja_files) > 1:
-        print(f"[!] {len(tja_files)} .tja files in {path}, but only one expected", file=sys.stderr)
+            print(f"[!] Found a TJA file in {path}, but no music files", file=sys.stderr)
+        
+        if len(music_files) > 1:
+            print(f"[-] {len(music_files)} music files in {path}, but only one expected: {', '.join(music_files)}", file=sys.stderr)
+    
+        if len(tja_files) > 1:
+            print(f"[-] {len(tja_files)} .tja files in {path}, but only one expected:  {', '.join(tja_files)}", file=sys.stderr)
+        
 
     return results
 
